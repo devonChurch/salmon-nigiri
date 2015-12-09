@@ -1,10 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-@font-face {
-    font-family: 'BLOKKNeue-Regular';
-    src:  url('/font/BLOKKNeue-Regular.woff') format('woff');
-}
-
 $palette: (
     blueDark: #178bbf,
     blueMedium: #14b5ea,
@@ -25,6 +20,9 @@ $speeds: (
 
 $padding: 1.25rem;
 $radius: 0.3rem;
+$tile--size: 100px;
+$tile--frames: 13;
+$sprite--height: 140px;
 
 html {
   box-sizing: border-box;

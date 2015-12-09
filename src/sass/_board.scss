@@ -1,0 +1,10 @@
+$board--size: $tile--size * 8;
+
+.board {
+    // align-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    height: $board--size;
+    margin: auto;
+    width: $board--size;
+}
