@@ -35,16 +35,16 @@ body {
   transform: translateZ(1);
   width: $tile--size;
 
-  &--dormant {
-
-      .tile__mask {
-        transform: translateY(15px);
-      }
-
-      .tile__front--1 {
-          fill: darken($white--front, 5%);
-      }
-  }
+  // &--dormant {
+  //
+  //     .tile__mask {
+  //       transform: translateY(15px);
+  //     }
+  //
+  //     .tile__front--1 {
+  //         fill: darken($white--front, 5%);
+  //     }
+  // }
 
   &--flip &__sprite {
     transform: translateX($tile--size * ($tile--frames - 1) * -1);
@@ -92,13 +92,26 @@ body {
     width: $tile--size * $tile--frames;
   }
 
-  &__front--1 {
-    fill: $white--front;
-    transition: color 1s ease-in;
+  // Setting the front and sides of the generic tiles to their respective shade
+  // of white.
+
+  &__front {
+
+      &--1,
+      &--2 {
+          fill: $white--front;
+          transition: color 1s ease-in;
+      }
+
   }
 
-  &__side--1 {
-    fill: $white--side;
+  &__side {
+
+      &--1,
+      &--2 {
+        fill: $white--side;
+      }
+
   }
 
   &[data-layers="white-to-green"] & {

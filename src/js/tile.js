@@ -3,25 +3,33 @@ const sprite = require('./sprite');
 
 const Tile = class {
 
-    constructor(Board, i, j) {
+    constructor(Reversi, Board) {
 
+        this.Reversi = Reversi;
         this.Board = Board;
-        this.i = i;
-        this.j = j;
         this.tileSize = 100;
         this.spriteHeight = 140;
         this.frames = 13;
 
-        this.tile = $(this.generateTile());
-        this.injectTile();
-        this.activateTile();
+    }
+
+    generateTile(i, j) {
+
+        const color = this.tileColor(i, j);
+        const svg = this.generateSvg(i, j);
+        const $tile = this.injectTile(svg);
+        this.activateTile(i, j, color, $tile);
+
+        return color;
 
     }
 
-    generateTile() {
+    generateSvg(i, j) {
+
+        // <button class="tile tile--dormant">
 
         return `
-            <button class="tile tile--dormant" ${this.tileColor()}>
+            <button class="tile">
 
                 <svg class="tile__hole" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" viewBox="0 0 ${this.tileSize} ${this.spriteHeight}" xml:space="preserve">
                     <path class="tile__hole__side" d="M90,140H10V35c0-2.8,2.2-5,5-5h70c2.8,0,5,2.2,5,5V140z"/>
@@ -59,37 +67,45 @@ const Tile = class {
 
     }
 
-    injectTile() {
+    injectTile(svg) {
 
-        this.Board.$wrapper.append(this.tile);
+        const $tile = $(svg);
+
+        this.Board.$wrapper.append($tile);
+
+        return $tile;
 
     }
 
-    activateTile() {
+    activateTile(i, j, color, $tile) {
 
-        // const delay = Math.random() * 1000;
+        // green-to-blue
+        // blue-to-green
+        // data-layers="${layers}"
 
         setTimeout(() => {
 
-            this.tile.removeClass('tile--dormant');
+            $tile
+                // .removeClass('tile--dormant')
+                .addClass('tile--flip')
+                .attr('data-layers', `white-to-${color}`);
 
-        }, this.setDelay());
-
-    }
-
-    setDelay() {
-
-        return 1000 / this.Board.tally * 2 * (this.i + this.j);
+        }, this.setDelay(i, j));
 
     }
 
+    setDelay(i, j) {
 
-    tileColor() {
+        return 1000 / this.Board.tally * 2 * (i + j);
 
-        const tally = (this.i * this.Board.tally) + this.j;
-        const layers = tally === 27 ? 'green-to-blue' : tally === 36 ? 'blue-to-green' : null;
+    }
 
-        return layers === null ? '' : `data-layers="${layers}"`;
+
+    tileColor(i, j) {
+
+        const tally = (i * this.Board.tally) + j;
+
+        return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
 
     }
 

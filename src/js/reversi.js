@@ -1,10 +1,14 @@
+const Helper = require('./helper');
 const Board = require('./board');
+const Game = require('./game');
 
 const Reversi = class {
 
     constructor() {
 
-        this.board = new Board(this);
+        this.Helper = new Helper(this);
+        this.Board = new Board(this);
+        this.Game = new Game(this);
 
     }
 
