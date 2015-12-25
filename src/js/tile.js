@@ -16,7 +16,7 @@ const Tile = class {
     generateTile(i, j) {
 
         const color = this.tileColor(i, j);
-        const svg = this.generateSvg(i, j);
+        const svg = this.generateSvg();
         const $tile = this.injectTile(svg);
         this.activateTile(i, j, color, $tile);
 
@@ -24,9 +24,7 @@ const Tile = class {
 
     }
 
-    generateSvg(i, j) {
-
-        // <button class="tile tile--dormant">
+    generateSvg() {
 
         return `
             <button class="tile">
@@ -96,7 +94,7 @@ const Tile = class {
 
     setDelay(i, j) {
 
-        return 1000 / this.Board.tally * 2 * (i + j);
+        return 1000 / this.Board.tally * 2 * (i + j + 1);
 
     }
 

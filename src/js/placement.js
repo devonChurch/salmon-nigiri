@@ -13,25 +13,28 @@ const Placement = class {
 
     generateDirections() {
 
+        // Depicts the eight directions that each tile can be effected by.
+        // -> ‘+’ = Up / Right
+        // -> ‘-’ = Down / Left
+        // -> ‘ ‘ = No offfset
+
         return [
             {x: ' ', y: '+'},  // Up
-            {x: '+', y: '+'},  // Left, Up
-            {x: '+', y: ' '},  // Left
-            {x: '+', y: '-'},  // Left, Down
+            {x: '+', y: '+'},  // Right, Up
+            {x: '+', y: ' '},  // Right
+            {x: '+', y: '-'},  // Right, Down
             {x: ' ', y: '-'},  // Down
-            {x: '-', y: '-'},  // Right, Down
-            {x: '-', y: ' '},  // Right
-            {x: '-', y: '+'}   // Right, Up
+            {x: '-', y: '-'},  // Left, Down
+            {x: '-', y: ' '},  // Left
+            {x: '-', y: '+'}   // Left, Up
         ];
 
     }
 
     findPossibilities() {
 
-        console.log('Finding placement possibilities');
-
-        // Needs to be a blank tile
-        // Then in any direction we need at least one oppersite color followed by a same color tile
+        // Finding all possible placement possibilities for the current turn and
+        // use them for either PlayerOne’s of Player’s two functionality.
 
         const possibilities = {};
         const keys = Object.keys(this.Board.tiles);
@@ -45,21 +48,20 @@ const Placement = class {
             const matches = tile.color === 'white' ? this.placementRelevance(tile) : false;
             console.log(tile);
 
-            if (matches) {
-
-                possibilities[key] = matches;
-                // add to possibilities array
-            }
+            if (matches) possibilities[key] = matches;
 
         }
 
         console.log(possibilities);
 
-        // chooseCpuTile(possibilities);
+        this.Game.PlayerTwo.choosePossibility(possibilities);
 
     }
 
     tileProperties(key) {
+
+        // Get the properties for the current file being cross-referenced to
+        // find it’s relevance.
 
         const coordinates = key.split('|');
         const x = coordinates[0];
@@ -85,9 +87,7 @@ const Placement = class {
             const matches = this.siblingRelevance(tile, direction);
             console.log(`       ${matches}`);
 
-            if (matches) { flip = flip.concat(matches); }
-
-
+            if (matches) flip = flip.concat(matches);
 
         }
 
