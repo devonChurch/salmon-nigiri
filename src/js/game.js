@@ -12,7 +12,6 @@ const Game = class {
         this.PlayerOne = new PlayerOne(Reversi,  this);
         this.PlayerTwo = new PlayerTwo(Reversi,  this);
         this.i = this.randomiseTurn();
-        this.startGame();
 
     }
 

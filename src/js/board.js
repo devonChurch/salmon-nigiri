@@ -25,7 +25,7 @@ const Board = class {
 
 
                 // instances[i][j] = new Tile(this, i, j);
-                instances[`${i}|${j}`] = this.Tile.generateTile(i, j);
+                instances[`${i}-${j}`] = this.Tile.generateTile(i, j);
 
             }
 

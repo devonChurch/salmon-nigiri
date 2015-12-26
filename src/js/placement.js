@@ -41,18 +41,18 @@ const Placement = class {
 
         for (let key of keys) {
 
-            console.log('');
-            console.log('* * * * * * * * * * * * * * * * * * * * * * * * * *');
-            console.log(`Looking up ${key}`);
+            // console.log('');
+            // console.log('* * * * * * * * * * * * * * * * * * * * * * * * * *');
+            // console.log(`Looking up ${key}`);
             const tile = this.tileProperties(key);
             const matches = tile.color === 'white' ? this.placementRelevance(tile) : false;
-            console.log(tile);
+            // console.log(tile);
 
             if (matches) possibilities[key] = matches;
 
         }
 
-        console.log(possibilities);
+        // console.log(possibilities);
 
         this.Game.PlayerTwo.choosePossibility(possibilities);
 
@@ -63,7 +63,7 @@ const Placement = class {
         // Get the properties for the current file being cross-referenced to
         // find it’s relevance.
 
-        const coordinates = key.split('|');
+        const coordinates = key.split('-');
         const x = coordinates[0];
         const y = coordinates[1];
 
@@ -77,15 +77,15 @@ const Placement = class {
 
     placementRelevance(tile) {
 
-        console.log('  -> Checking directions...');
+        // console.log('  -> Checking directions...');
 
         let flip = [];
 
         for (let direction of this.directions) {
 
-            console.log(`    -> direction = ${direction.x} | ${direction.y}`);
+            // console.log(`    -> direction = ${direction.x} / ${direction.y}`);
             const matches = this.siblingRelevance(tile, direction);
-            console.log(`       ${matches}`);
+            // console.log(`       ${matches}`);
 
             if (matches) flip = flip.concat(matches);
 
@@ -116,15 +116,51 @@ const Placement = class {
 
             x = direction.x === '-' ? x -= 1 : direction.x === '+' ? x += 1 : x;
             y = direction.y === '-' ? y -= 1 : direction.y === '+' ? y += 1 : y;
-            let key = `${x}|${y}`;
+            let key = `${x}-${y}`;
             color = this.Board.tiles.hasOwnProperty(key) ? this.Board.tiles[key] : 'white';
             // if (tiles.hasOwnProperty(key) && color === match) { console.log(`       ${key} / ${color}`); }
-            console.log(`       ${key} / ${color}`);
+            // console.log(`       ${key} / ${color}`);
             if (color === match) { flip.push(key); }
 
         } while (color === match);
 
         return flip.length > 0 && color === 'blue' ? flip : false;
+
+    }
+
+    performPlacement(selection, color) {
+
+        console.log(selection);
+
+        const tiles = this.consolidateSelection(selection);
+
+        for (let tile of tiles) {
+
+            const $tile = $(`#${tile}`);
+            const from = $tile.data('color-to');
+            console.log($tile);
+            console.log(`old color = ${from}`);
+            const to = color;
+            this.Reversi.Board.Tile.filpTile($tile, from, to);
+
+        }
+    }
+
+    consolidateSelection(selection) {
+
+        const key = Object.keys(selection);
+        const tiles = [`${key}`];
+
+        console.log(selection[key][0]);
+
+        // for (let tile in selection[key]) {
+        for (let i = 0; i < selection[key].length; i += 1) {
+
+            tiles.push(selection[key][i]);
+
+        }
+
+        return tiles;
 
     }
 

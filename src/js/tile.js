@@ -16,7 +16,7 @@ const Tile = class {
     generateTile(i, j) {
 
         const color = this.tileColor(i, j);
-        const svg = this.generateSvg();
+        const svg = this.generateSvg(i, j);
         const $tile = this.injectTile(svg);
         this.activateTile(i, j, color, $tile);
 
@@ -24,10 +24,10 @@ const Tile = class {
 
     }
 
-    generateSvg() {
+    generateSvg(i, j) {
 
         return `
-            <button class="tile">
+            <button id="${i}-${j}" class="tile">
 
                 <svg class="tile__hole" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" viewBox="0 0 ${this.tileSize} ${this.spriteHeight}" xml:space="preserve">
                     <path class="tile__hole__side" d="M90,140H10V35c0-2.8,2.2-5,5-5h70c2.8,0,5,2.2,5,5V140z"/>
@@ -77,18 +77,32 @@ const Tile = class {
 
     activateTile(i, j, color, $tile) {
 
-        // green-to-blue
-        // blue-to-green
-        // data-layers="${layers}"
-
         setTimeout(() => {
 
-            $tile
-                // .removeClass('tile--dormant')
-                .addClass('tile--flip')
-                .attr('data-layers', `white-to-${color}`);
+            this.filpTile($tile, 'white', color);
+            this.activationCallback(i, j);
 
-        }, this.setDelay(i, j));
+        }, this.setDelay(i, j) / 2);
+        // }, 0);
+
+    }
+
+    activationCallback(i, j) {
+
+        const tally = (i + 1) * (j + 1);
+        const total = Math.pow(this.Board.tally, 2);
+
+        // console.log(`tally ${tally} === total ${total} (${tally === total})`);
+
+        if (tally === total) {
+
+            setTimeout(() => {
+
+                this.Reversi.Game.startGame();
+
+            }, 2000);
+
+        }
 
     }
 
@@ -104,6 +118,32 @@ const Tile = class {
         const tally = (i * this.Board.tally) + j;
 
         return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
+
+    }
+
+    raiseTile () {
+
+
+    }
+
+    filpTile($tile, from, to) {
+
+        $tile.removeClass('tile--flip')
+        .attr({
+            'data-color-from': from,
+            'data-color-to': to
+        });
+
+        setTimeout(() => {
+
+            $tile
+                .addClass('tile--flip');
+                // .attr({
+                //     'data-color-from': from,
+                //     'data-color-to': to
+                // });
+
+        }, 100);
 
     }
 

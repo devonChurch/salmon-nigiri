@@ -6,26 +6,17 @@ const PlayerTwo = class {
 
         this.Reversi = Reversi;
         this.Game = Game;
+        this.color = 'blue';
 
     }
 
     choosePossibility(possibilities) {
 
-        console.log('');
-
         possibilities = this.sortPossibilities(possibilities);
-        console.log('priorities:');
-        console.log(  possibilities);
-
         possibilities = this.findPrioritySet(possibilities);
-        console.log('priority:');
-        console.log(  possibilities);
+        const selection = this.pickPriorityTile(possibilities);
 
-        const chosen = this.pickPriorityTile(possibilities);
-        console.log('chosen:');
-        console.log(  chosen);
-
-        // return chosen;
+        this.Game.Placement.performPlacement(possibilities[selection], this.color);
 
     }
 
@@ -58,8 +49,7 @@ const PlayerTwo = class {
             max = key > max ? key : max;
 
         }
-
-        // console.log(max);
+        
         return priorities[max];
 
     }
