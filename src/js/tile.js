@@ -75,12 +75,14 @@ const Tile = class {
 
     activateTile(i, j, color, $tile) {
 
+        const delay = 1000 / this.Board.tally * 2 * (i + j + 1);
+
         setTimeout(() => {
 
-            this.filpTile($tile, 'white', color);
+            this.Reversi.Animation.flipTile($tile, 'white', color);
             this.activationCallback(i, j);
 
-        }, this.setDelay(i, j) / 2);
+        }, delay);
         // }, 0);
 
     }
@@ -104,40 +106,12 @@ const Tile = class {
 
     }
 
-    setDelay(i, j) {
-
-        return 1000 / this.Board.tally * 2 * (i + j + 1);
-
-    }
-
 
     tileColor(i, j) {
 
         const tally = (i * this.Board.tally) + j;
 
         return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
-
-    }
-
-    raiseTile () {
-
-
-    }
-
-    filpTile($tile, from, to) {
-
-        $tile
-            .removeClass('tile--flip')
-            .attr({
-                'data-color-from': from,
-                'data-color-to': to
-            });
-
-        setTimeout(() => {
-
-            $tile.addClass('tile--flip');
-
-        }, 100);
 
     }
 

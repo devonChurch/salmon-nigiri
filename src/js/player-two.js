@@ -9,6 +9,12 @@ const PlayerTwo = class {
 
     }
 
+    startTurn(possibilities) {
+
+        this.choosePossibility(possibilities);
+
+    }
+
     choosePossibility(possibilities) {
 
         console.log(possibilities);

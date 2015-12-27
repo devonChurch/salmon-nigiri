@@ -1,6 +1,7 @@
 const Helper = require('./helper');
 const Board = require('./board');
 const Game = require('./game');
+const Animation = require('./animation');
 
 const Reversi = class {
 
@@ -9,6 +10,7 @@ const Reversi = class {
         this.Helper = new Helper(this);
         this.Board = new Board(this);
         this.Game = new Game(this);
+        this.Animation = new Animation(this);
 
     }
 

@@ -14,6 +14,7 @@ const Placement = class {
     generateDirections() {
 
         // Depicts the eight directions that each tile can be effected by.
+        //
         // -> ‘+’ = Up / Right
         // -> ‘-’ = Down / Left
         // -> ‘ ‘ = No offfset
@@ -58,9 +59,8 @@ const Placement = class {
         // utilised in their player specific scenarios.
 
         const player = this.Reversi.Helper.player;
-        const callback = player === 'PlayerOne' ? 'activateListeners' : 'choosePossibility';
 
-        this.Game[player][callback](possibilities);
+        this.Game[player].startTurn(possibilities);
 
     }
 
@@ -155,7 +155,7 @@ const Placement = class {
             const $tile = $(`#${tile}`);
             const from = $tile.attr('data-color-to');
             const to = this.Reversi.Helper.playerColor;
-            this.Reversi.Board.Tile.filpTile($tile, from, to);
+            this.Reversi.Animation.flipTile($tile, from, to);
             // this.Board.tiles[tile] = to;
             // console.log('');
             console.log(`Changing ${tile} to ${to}`);

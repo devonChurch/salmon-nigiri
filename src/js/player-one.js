@@ -10,6 +10,20 @@ const PlayerOne = class {
 
     }
 
+    startTurn(possibilities) {
+
+        this.Reversi.Animation.illustratePossibilities(possibilities);
+        this.activateListeners(possibilities);
+
+    }
+
+    endTurn() {
+
+        this.Reversi.Animation.resetPossibilities();
+        this.deactivateListeners();
+
+    }
+
     activateListeners(possibilities) {
 
         const keys = Object.keys(possibilities);
@@ -62,8 +76,7 @@ const PlayerOne = class {
         const selection = {[key]: possibilities[key]};
 
         this.Game.Placement.performPlacement(selection);
-        this.deactivateListeners();
-
+        this.endTurn();
 
     }
 

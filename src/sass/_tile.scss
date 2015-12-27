@@ -2,6 +2,9 @@ $white--front: #f2f2f2;
 $white--side: #cccccc;
 $white--drop: #999999;
 
+$gray--front: #cccccc;
+$gray--side: #999999;
+
 $green--front: #22b573;
 $green--side: #14663e;
 
@@ -12,189 +15,160 @@ $tile--flip: 0.5s;
 
 @keyframes tile--jump {
 
-  0%,
-  100% {
-    transform: translateY(0);
-  }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
 
-  50% {
-    transform: translateY(-30px);
-  }
+    50% {
+        transform: translateY(-30px);
+    }
 }
 
 body {
-  margin: 100px;
+    margin: 100px;
 }
 
 .tile {
-  background: transparent;
-  border: 0;
-  height: $tile--size;
-  padding: 0;
-  position: relative;
-  transform: translateZ(1);
-  width: $tile--size;
-
-  // &--dormant {
-  //
-  //     .tile__mask {
-  //       transform: translateY(15px);
-  //     }
-  //
-  //     .tile__front--1 {
-  //         fill: darken($white--front, 5%);
-  //     }
-  // }
-
-  &--flip &__sprite {
-    transform: translateX($tile--size * ($tile--frames - 1) * -1);
-    transition-duration: $tile--flip;
-  }
-
-  &__hole,
-  &__base,
-  &__mask {
-    bottom: 0;
-    height: $sprite--height;
-    left: 0;
-    position: absolute;
+    background: transparent;
+    border: 0;
+    height: $tile--size;
+    padding: 0;
+    position: relative;
+    transform: translateZ(1);
     width: $tile--size;
-  }
 
-  &__hole {
-
-    &__side {
-      fill: $white--side;
+    &--flip &__sprite {
+        transform: translateX($tile--size * ($tile--frames - 1) * -1);
+        transition-duration: $tile--flip;
     }
 
-    &__drop {
-      fill: $white--drop;
+    &__hole,
+    &__base,
+    &__mask {
+        bottom: 0;
+        height: $sprite--height;
+        left: 0;
+        position: absolute;
+        width: $tile--size;
     }
-  }
 
-  &__base {
-    fill: white;
-  }
+    &__hole {
 
-  &__mask {
-    overflow: hidden;
-    transition: transform 1s ease-out;
+        &__side {
+            fill: $white--side;
+        }
 
-    .tile--flip & {
-      animation: tile--jump $tile--flip ease-in-out;
+        &__drop {
+            fill: $white--drop;
+        }
     }
-  }
 
-  &__sprite {
-    height: $sprite--height;
-    transform: translateX(0);
-    transition: transform 0s steps($tile--frames - 1);
-    width: $tile--size * $tile--frames;
-  }
+    &__base {
+        fill: white;
+    }
+
+    &__mask {
+        overflow: hidden;
+        transition: transform 1s ease-out;
+
+        .tile--flip & {
+            animation: tile--jump $tile--flip ease-in-out;
+        }
+    }
+
+    &__sprite {
+        height: $sprite--height;
+        transform: translateX(0);
+        transition: transform 0s steps($tile--frames - 1);
+        width: $tile--size * $tile--frames;
+    }
 
   // Setting the front and sides of the generic tiles to their respective shade
   // of white.
 
-  &__front {
+    &__front {
 
-      &--1,
-      &--2 {
+        &--1,
+        &--2 {
           fill: $white--front;
           transition: color 1s ease-in;
-      }
+        }
 
-  }
-
-  &__side {
-
-      &--1,
-      &--2 {
-        fill: $white--side;
-      }
-
-  }
-
-  &[data-color-from="white"][data-color-to="green"] & {
-
-    &__front {
-
-      &--2 {
-        fill: $green--front;
-      }
     }
 
     &__side {
 
-      &--2 {
-        fill: $green--side;
-      }
-    }
-  }
+        &--1,
+        &--2 {
+            fill: $white--side;
+        }
 
-  &[data-color-from="white"][data-color-to="blue"] & {
-
-    &__front {
-
-      &--2 {
-        fill: $blue--front;
-      }
     }
 
-    &__side {
+    &[data-color-from="gray"] & {
 
-      &--2 {
-        fill: $blue--side;
-      }
-    }
-  }
+        &__front--1 {
+            fill: $gray--front;
+        }
 
-  &[data-color-from="blue"][data-color-to="green"] & {
-
-    &__front {
-
-      &--1 {
-        fill: $blue--front;
-      }
-
-      &--2 {
-        fill: $green--front;
-      }
+        &__side--1 {
+            fill: $gray--side;
+        }
     }
 
-    &__side {
+    &[data-color-to="gray"] & {
 
-      &--1 {
-        fill: $blue--side;
-      }
+        &__front--2 {
+            fill: $gray--front;
+        }
 
-      &--2 {
-        fill: $green--side;
-      }
-    }
-  }
-
-  &[data-color-from="green"][data-color-to="blue"] & {
-
-    &__front {
-
-      &--1 {
-        fill: $green--front;
-      }
-
-      &--2 {
-        fill: $blue--front;
-      }
+        &__side--2 {
+            fill: $gray--side;
+        }
     }
 
-    &__side {
+    &[data-color-from="green"] & {
 
-      &--1 {
-        fill: $green--side;
-      }
+        &__front--1 {
+            fill: $green--front;
+        }
 
-      &--2 {
-        fill: $blue--side;
-      }
+        &__side--1 {
+            fill: $green--side;
+        }
     }
-  }
+
+    &[data-color-to="green"] & {
+
+        &__front--2 {
+            fill: $green--front;
+        }
+
+        &__side--2 {
+            fill: $green--side;
+        }
+    }
+
+    &[data-color-from="blue"] & {
+
+        &__front--1 {
+            fill: $blue--front;
+        }
+
+        &__side--1 {
+            fill: $blue--side;
+        }
+    }
+
+    &[data-color-to="blue"] & {
+
+        &__front--2 {
+            fill: $blue--front;
+        }
+
+        &__side--2 {
+            fill: $blue--side;
+        }
+    }
 }
