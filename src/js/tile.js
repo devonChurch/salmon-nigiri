@@ -20,14 +20,12 @@ const Tile = class {
         const $tile = this.injectTile(svg);
         this.activateTile(i, j, color, $tile);
 
-        return color;
-
     }
 
     generateSvg(i, j) {
 
         return `
-            <button id="${i}-${j}" class="tile">
+            <button id="${j}-${i}" class="tile">
 
                 <svg class="tile__hole" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" viewBox="0 0 ${this.tileSize} ${this.spriteHeight}" xml:space="preserve">
                     <path class="tile__hole__side" d="M90,140H10V35c0-2.8,2.2-5,5-5h70c2.8,0,5,2.2,5,5V140z"/>
@@ -128,20 +126,16 @@ const Tile = class {
 
     filpTile($tile, from, to) {
 
-        $tile.removeClass('tile--flip')
-        .attr({
-            'data-color-from': from,
-            'data-color-to': to
-        });
+        $tile
+            .removeClass('tile--flip')
+            .attr({
+                'data-color-from': from,
+                'data-color-to': to
+            });
 
         setTimeout(() => {
 
-            $tile
-                .addClass('tile--flip');
-                // .attr({
-                //     'data-color-from': from,
-                //     'data-color-to': to
-                // });
+            $tile.addClass('tile--flip');
 
         }, 100);
 

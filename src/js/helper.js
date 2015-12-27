@@ -16,11 +16,29 @@ const Helper = class {
 
 	}
 
-	boolean() {
+	get boolean() {
 
 		return this.randomise({max: 1}) % 2 === 0 ? false : true;
 
 	}
+
+    get player() {
+
+        return this.Reversi.Game.i % 2 === 0 ? 'PlayerOne' : 'PlayerTwo';
+
+    }
+
+    get playerColor() {
+
+        return this.Reversi.Game.i % 2 === 0 ? 'green' : 'blue';
+
+    }
+
+    get opponentColor() {
+
+        return this.Reversi.Game.i % 2 === 0 ? 'blue' : 'green';
+
+    }
 
 };
 

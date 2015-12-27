@@ -6,17 +6,18 @@ const PlayerTwo = class {
 
         this.Reversi = Reversi;
         this.Game = Game;
-        this.color = 'blue';
 
     }
 
     choosePossibility(possibilities) {
 
+        console.log(possibilities);
+
         possibilities = this.sortPossibilities(possibilities);
         possibilities = this.findPrioritySet(possibilities);
         const selection = this.pickPriorityTile(possibilities);
 
-        this.Game.Placement.performPlacement(possibilities[selection], this.color);
+        this.Game.Placement.performPlacement(possibilities[selection]);
 
     }
 
@@ -38,9 +39,9 @@ const PlayerTwo = class {
 
     }
 
-    findPrioritySet(priorities) {
+    findPrioritySet(possibilities) {
 
-        const keys = Object.keys(priorities);
+        const keys = Object.keys(possibilities);
         let max = 0;
 
         for (let key of keys) {
@@ -49,14 +50,14 @@ const PlayerTwo = class {
             max = key > max ? key : max;
 
         }
-        
-        return priorities[max];
+
+        return possibilities[max];
 
     }
 
-    pickPriorityTile(priority) {
+    pickPriorityTile(possibilities) {
 
-        const max = priority.length;
+        const max = possibilities.length - 1;
 
         return this.Reversi.Helper.randomise({max});
 

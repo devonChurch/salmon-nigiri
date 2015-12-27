@@ -34,33 +34,39 @@ const Placement = class {
     findPossibilities() {
 
         // Finding all possible placement possibilities for the current turn and
-        // use them for either PlayerOne’s of Player’s two functionality.
+        // use them for either player one or two's functionality.
 
         const possibilities = {};
         const keys = Object.keys(this.Board.tiles);
 
         for (let key of keys) {
 
-            // console.log('');
-            // console.log('* * * * * * * * * * * * * * * * * * * * * * * * * *');
-            // console.log(`Looking up ${key}`);
             const tile = this.tileProperties(key);
             const matches = tile.color === 'white' ? this.placementRelevance(tile) : false;
-            // console.log(tile);
 
             if (matches) possibilities[key] = matches;
 
         }
 
-        // console.log(possibilities);
+        this.utilisePossibilities(possibilities);
 
-        this.Game.PlayerTwo.choosePossibility(possibilities);
+    }
+
+    utilisePossibilities(possibilities) {
+
+        // Ping either player one or two with the possible tile references to be
+        // utilised in their player specific scenarios.
+
+        const player = this.Reversi.Helper.player;
+        const callback = player === 'PlayerOne' ? 'activateListeners' : 'choosePossibility';
+
+        this.Game[player][callback](possibilities);
 
     }
 
     tileProperties(key) {
 
-        // Get the properties for the current file being cross-referenced to
+        // Get the properties for the current tile being cross-referenced to
         // find it’s relevance.
 
         const coordinates = key.split('-');
@@ -77,21 +83,18 @@ const Placement = class {
 
     placementRelevance(tile) {
 
-        // console.log('  -> Checking directions...');
+        // Loop through each of the eight possible directions that can influence
+        // this tile via its siblings. If there are any matches then re return
+        // them back to be added into the possibilities.
 
         let flip = [];
 
         for (let direction of this.directions) {
 
-            // console.log(`    -> direction = ${direction.x} / ${direction.y}`);
             const matches = this.siblingRelevance(tile, direction);
-            // console.log(`       ${matches}`);
-
             if (matches) flip = flip.concat(matches);
 
         }
-
-        // console.log(flip);
 
         return flip.length > 0 ? flip : false;
 
@@ -99,61 +102,79 @@ const Placement = class {
 
     siblingRelevance(properties, direction) {
 
-        // Green = Player 1
-        // Blue  = CPU
+        // Cross reference the tiles in the current direction making sure that
+        // as the tiles coordinates move away from the original white tile their
+        // colors are always the opponents hue. Once this is not the case we
+        // check the current tile that did not meet the criteria of the wile
+        // loop - if it is the players color then we have a successful match
+        //
+        // i.e. [original white tile selection] —> [x * tiles with opponents
+        // color] —> [bookend tiles with the players color].
 
-        // a while loop
-        //   -> while next dot is blue
-
-        const match = 'green'; // playerTurn ? cpuColor : playerColor;
+        const match = this.Reversi.Helper.opponentColor;
         const flip = [];
 
         let x = properties.x;
         let y = properties.y;
-        let color = match;
+        let color = this.Reversi.Helper.opponentColor;
 
         do {
 
             x = direction.x === '-' ? x -= 1 : direction.x === '+' ? x += 1 : x;
             y = direction.y === '-' ? y -= 1 : direction.y === '+' ? y += 1 : y;
+
             let key = `${x}-${y}`;
             color = this.Board.tiles.hasOwnProperty(key) ? this.Board.tiles[key] : 'white';
-            // if (tiles.hasOwnProperty(key) && color === match) { console.log(`       ${key} / ${color}`); }
-            // console.log(`       ${key} / ${color}`);
+
             if (color === match) { flip.push(key); }
 
         } while (color === match);
 
-        return flip.length > 0 && color === 'blue' ? flip : false;
+        return flip.length > 0 && color === this.Reversi.Helper.playerColor ? flip : false;
 
     }
 
-    performPlacement(selection, color) {
+    performPlacement(selection) {
 
+        // Xxxxxxx.
+
+        console.log('');
+        console.log('selection sent through for placement');
         console.log(selection);
 
         const tiles = this.consolidateSelection(selection);
 
+        console.log('');
+        console.log('tiles to change');
+        console.log(tiles);
+
+        console.log('');
+        console.log(`TILE UPDATES: (player color = ${this.Reversi.Helper.playerColor})`);
         for (let tile of tiles) {
 
             const $tile = $(`#${tile}`);
-            const from = $tile.data('color-to');
-            console.log($tile);
-            console.log(`old color = ${from}`);
-            const to = color;
+            const from = $tile.attr('data-color-to');
+            const to = this.Reversi.Helper.playerColor;
             this.Reversi.Board.Tile.filpTile($tile, from, to);
+            // this.Board.tiles[tile] = to;
+            // console.log('');
+            console.log(`Changing ${tile} to ${to}`);
+            // console.log(this.Board.tiles);
 
         }
+        console.log('');
+
+        this.Game.endTurn();
+
     }
 
     consolidateSelection(selection) {
 
+        // Xxxxxxx.
+
         const key = Object.keys(selection);
         const tiles = [`${key}`];
 
-        console.log(selection[key][0]);
-
-        // for (let tile in selection[key]) {
         for (let i = 0; i < selection[key].length; i += 1) {
 
             tiles.push(selection[key][i]);
