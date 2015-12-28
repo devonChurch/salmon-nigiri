@@ -17,7 +17,7 @@ const Game = class {
 
     randomiseTurn() {
 
-        return 1; // this.Reversi.Helper.randomise({max: 1});
+        return 0; // this.Reversi.Helper.randomise({max: 1});
 
     }
 
@@ -63,6 +63,18 @@ const Game = class {
     endGame() {
 
         // console.log('Ending game');
+
+    }
+
+    noPossibilities() {
+
+        console.log(`no possibile moves for ${this.Reversi.Helper.player}`);
+
+        // no white tiles = game over
+        // no moves for one player = move onto opponents turn
+        // no moves for either player = game over
+
+        this.Reversi.Board.freeTiles();
 
     }
 

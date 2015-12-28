@@ -22,11 +22,17 @@ const Helper = class {
 
 	}
 
-    get player() {
+	get player() {
 
         return this.Reversi.Game.i % 2 === 0 ? 'PlayerOne' : 'PlayerTwo';
 
     }
+
+	get opponent() {
+
+		return this.Reversi.Game.i % 2 === 0 ? 'PlayerTwo' : 'PlayerOne';
+
+	}
 
     get playerColor() {
 

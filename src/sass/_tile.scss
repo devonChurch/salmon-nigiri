@@ -32,10 +32,11 @@ body {
 .tile {
     background: transparent;
     border: 0;
+    cursor: default;
     height: $tile--size;
+    outline: 0;
     padding: 0;
     position: relative;
-    transform: translateZ(1);
     width: $tile--size;
 
     &--flip &__sprite {
@@ -70,7 +71,7 @@ body {
 
     &__mask {
         overflow: hidden;
-        transition: transform 1s ease-out;
+        transition: transform 0.25s ease-out;
 
         .tile--flip & {
             animation: tile--jump $tile--flip ease-in-out;
@@ -125,6 +126,14 @@ body {
 
         &__side--2 {
             fill: $gray--side;
+        }
+    }
+
+    &[data-color-to="gray"] {
+        cursor: pointer;
+
+        &:hover .tile__mask {
+            transform: translateY(5px);
         }
     }
 

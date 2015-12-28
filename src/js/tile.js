@@ -83,7 +83,6 @@ const Tile = class {
             this.activationCallback(i, j);
 
         }, delay);
-        // }, 0);
 
     }
 
@@ -91,8 +90,6 @@ const Tile = class {
 
         const tally = (i + 1) * (j + 1);
         const total = Math.pow(this.Board.tally, 2);
-
-        // console.log(`tally ${tally} === total ${total} (${tally === total})`);
 
         if (tally === total) {
 
@@ -111,7 +108,9 @@ const Tile = class {
 
         const tally = (i * this.Board.tally) + j;
 
-        return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
+        // return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
+
+        return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
 
     }
 

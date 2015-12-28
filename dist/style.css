@@ -1,8 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);@font-face {
-  font-family: 'BLOKKNeue-Regular';
-  src: url("/font/BLOKKNeue-Regular.woff") format("woff"); }
-
-html {
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);html {
   box-sizing: border-box; }
 
 *, *:before, *:after {
@@ -11,40 +7,108 @@ html {
 body {
   margin: 0; }
 
-.hero {
-  background-image: linear-gradient(to bottom, #68d8fd, #14b5ea);
-  height: 0;
-  overflow: hidden;
-  padding-top: 29.29688%;
+.board {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  height: 800px;
+  margin: auto;
+  width: 800px; }
+
+@-webkit-keyframes tile--jump {
+  0%,
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  50% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px); } }
+
+@keyframes tile--jump {
+  0%,
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  50% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px); } }
+
+body {
+  margin: 100px; }
+
+.tile {
+  background: transparent;
+  border: 0;
+  height: 100px;
+  padding: 0;
   position: relative;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-  width: 100%; }
-  .hero__graph, .hero__svg {
+  width: 100px; }
+  .tile--flip .tile__sprite {
+    -webkit-transform: translateX(-1200px);
+            transform: translateX(-1200px);
+    transition-duration: 0.5s; }
+  .tile__hole, .tile__base, .tile__mask {
+    bottom: 0;
+    height: 140px;
     left: 0;
     position: absolute;
-    width: 100%;
-    top: 0; }
-  .hero__graph {
-    height: 100%; }
-  .hero__svg {
-    height: auto;
-    width: 100%; }
-  .hero__spline path {
-    fill: rgba(23, 139, 191, 0.2);
-    stroke-width: 1;
-    stroke: #178bbf;
-    stroke-linecap: round; }
-  .hero__counter {
-    z-index: 1; }
-    .hero__counter-alignment {
-      fill: none; }
-    .hero__counter-point {
-      fill: #14b5ea;
-      stroke-width: 1;
-      stroke: #178bbf; }
-  .hero__number {
-    fill: #178bbf;
-    font-family: 'Roboto', sans-serif; }
+    width: 100px; }
+  .tile__hole__side {
+    fill: #cccccc; }
+  .tile__hole__drop {
+    fill: #999999; }
+  .tile__base {
+    fill: white; }
+  .tile__mask {
+    overflow: hidden;
+    transition: -webkit-transform 1s ease-out;
+    transition: transform 1s ease-out;
+    transition: transform 1s ease-out, -webkit-transform 1s ease-out; }
+    .tile--flip .tile__mask {
+      -webkit-animation: tile--jump 0.5s ease-in-out;
+              animation: tile--jump 0.5s ease-in-out; }
+  .tile__sprite {
+    height: 140px;
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    transition: -webkit-transform 0s steps(12);
+    transition: transform 0s steps(12);
+    transition: transform 0s steps(12), -webkit-transform 0s steps(12);
+    width: 1300px; }
+  .tile__front--1, .tile__front--2 {
+    fill: #f2f2f2;
+    transition: color 1s ease-in; }
+  .tile__side--1, .tile__side--2 {
+    fill: #cccccc; }
+  .tile[data-color-from="gray"] .tile__front--1 {
+    fill: #cccccc; }
+  .tile[data-color-from="gray"] .tile__side--1 {
+    fill: #999999; }
+  .tile[data-color-to="gray"] .tile__front--2 {
+    fill: #cccccc; }
+  .tile[data-color-to="gray"] .tile__side--2 {
+    fill: #999999; }
+  .tile[data-color-to="gray"]:hover .tile__mask {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); }
+  .tile[data-color-from="green"] .tile__front--1 {
+    fill: #22b573; }
+  .tile[data-color-from="green"] .tile__side--1 {
+    fill: #14663e; }
+  .tile[data-color-to="green"] .tile__front--2 {
+    fill: #22b573; }
+  .tile[data-color-to="green"] .tile__side--2 {
+    fill: #14663e; }
+  .tile[data-color-from="blue"] .tile__front--1 {
+    fill: #3fa9f5; }
+  .tile[data-color-from="blue"] .tile__side--1 {
+    fill: #276991; }
+  .tile[data-color-to="blue"] .tile__front--2 {
+    fill: #3fa9f5; }
+  .tile[data-color-to="blue"] .tile__side--2 {
+    fill: #276991; }
 
 /*# sourceMappingURL=style.css.map*/

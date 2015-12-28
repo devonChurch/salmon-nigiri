@@ -8,11 +8,6 @@ const Animation = class {
 
     }
 
-    raiseTile () {
-
-
-    }
-
     flipTile($tile, from, to) {
 
         $tile

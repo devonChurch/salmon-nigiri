@@ -17,8 +17,6 @@ const PlayerTwo = class {
 
     choosePossibility(possibilities) {
 
-        console.log(possibilities);
-
         possibilities = this.sortPossibilities(possibilities);
         possibilities = this.findPrioritySet(possibilities);
         const selection = this.pickPriorityTile(possibilities);

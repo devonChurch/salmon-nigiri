@@ -59,8 +59,19 @@ const Placement = class {
         // utilised in their player specific scenarios.
 
         const player = this.Reversi.Helper.player;
+        console.log(`${player}'s possibilities`);
+        console.log(possibilities);
 
-        this.Game[player].startTurn(possibilities);
+        if (Object.keys(possibilities).length > 0) {
+
+            this.Game[player].startTurn(possibilities);
+
+        } else {
+
+            this.Game.noPossibilities();
+
+        }
+
 
     }
 
@@ -148,20 +159,16 @@ const Placement = class {
         console.log('tiles to change');
         console.log(tiles);
 
-        console.log('');
-        console.log(`TILE UPDATES: (player color = ${this.Reversi.Helper.playerColor})`);
         for (let tile of tiles) {
 
             const $tile = $(`#${tile}`);
             const from = $tile.attr('data-color-to');
             const to = this.Reversi.Helper.playerColor;
             this.Reversi.Animation.flipTile($tile, from, to);
-            // this.Board.tiles[tile] = to;
-            // console.log('');
-            console.log(`Changing ${tile} to ${to}`);
-            // console.log(this.Board.tiles);
 
         }
+        // for (let i = 0; i < length; i += 1) {
+        // if (i === length - 1) this.Reversi.Animation.flipTile($tile, from, to);
         console.log('');
 
         this.Game.endTurn();

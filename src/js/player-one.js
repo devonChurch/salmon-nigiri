@@ -26,47 +26,7 @@ const PlayerOne = class {
 
     activateListeners(possibilities) {
 
-        const keys = Object.keys(possibilities);
-
-        this.Board.$wrapper
-            .on('mouseenter.playerOne', 'button', (e) => {
-
-                if (this.tileRelevance(keys)) this.tileEnter(e);
-
-            }).on('mouseleave.playerOne', 'button', (e) => {
-
-                if (this.tileRelevance(keys)) this.tileLeave(e);
-
-            }).on('click.playerOne', 'button', (e) => {
-
-                if (this.tileRelevance(keys)) this.tileClick(e, possibilities);
-
-            });
-
-    }
-
-    tileRelevance(keys) {
-
-        // console.log(`chacking relevance!`);
-
-        // callback.call(this);
-        // callback();
-
-        return true;
-
-    }
-
-    tileEnter() {
-
-        // console.log('tile enter');
-
-
-    }
-
-    tileLeave() {
-
-        // console.log('tile leave');
-
+        this.Board.$wrapper.on('click.playerOne', 'button[data-color-to="gray"]', (e) => this.tileClick(e, possibilities));
 
     }
 
