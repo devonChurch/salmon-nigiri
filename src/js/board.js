@@ -8,7 +8,7 @@ const Board = class {
         this.Reversi = Reversi;
         this.Tile = new Tile(Reversi, this);
 
-        this.$wrapper = $('#board');
+        this.$wrapper = this.Reversi.$wrapper.find('#board');
         this.tally = 8;
         this.generateTiles();
         this.tiles = null; // generated via this.replicateBoard();

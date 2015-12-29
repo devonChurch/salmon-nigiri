@@ -1,0 +1,187 @@
+.tally {
+    $size--small: 50px;
+    $size--medium: 70px;
+    $size--big: 90px;
+    $board-edge--small: $board--size--small / 2;
+    $board-edge--medium: $board--size--medium / 2;
+    $board-edge--big: $board--size--big / 2;
+    height: $size--small;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    width: $size--small;
+    z-index: 10;
+
+    @include media('>=medium') {
+        height: $size--medium;
+        width: $size--medium;
+    }
+
+    @include media('>=large') {
+        height: $size--big;
+        width: $size--big;
+    }
+
+    &--one {
+        color: $green--front;
+        right: 50%;
+        transform: translate(-$board-edge--small + $tile--size--small, -$board-edge--small - $sprite--height--small - 20px);
+
+        @include media('>=medium') {
+            transform: translate(-$board-edge--medium + $tile--size--medium, -$board-edge--medium - $sprite--height--medium - 20px);
+        }
+
+        @include media('>=large') {
+            transform: translate(-$board-edge--big - 10px, -50%);
+        }
+
+        @include media('>=xlarge') {
+            transform: translate(-$board-edge--big - 50px, -50%);
+        }
+    }
+
+    &--two {
+        color: $blue--front;
+        left: 50%;
+        transform: translate($board-edge--small - $tile--size--small, -$board-edge--small - $sprite--height--small - 20px);
+
+        @include media('>=medium') {
+            transform: translate($board-edge--medium - $tile--size--medium, -$board-edge--medium - $sprite--height--medium - 20px);
+        }
+
+        @include media('>=large') {
+            transform: translate($board-edge--big + 10px, -50%);
+        }
+
+        @include media('>=xlarge') {
+            transform: translate($board-edge--big + 50px, -50%);
+        }
+    }
+
+    &__ball {
+        border: 2px solid;
+        border-radius: 50%;
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        &:before {
+            $size: 136%;
+            border: 1px solid;
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: $size;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: $size;
+        }
+
+        .tally--one & {
+            background: $green--front;
+            border-color: $green--side;
+        }
+
+        .tally--two & {
+            background: $blue--front;
+            border-color: $blue--side;
+        }
+    }
+
+    &__number {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transition: transform 0.5s ease-out;
+        width: 50%;
+
+        &--0 {
+            left: 0;
+
+            @for $i from 1 through 10 {
+
+                [data-digit-0="#{$i}"] & {
+                    transform: translateY(-100% * $i);
+                }
+            }
+        }
+
+        &--1 {
+            right: 0;
+
+            @for $i from 1 through 10 {
+
+                [data-digit-1="#{$i}"] & {
+                    transform: translateY(-100% * $i);
+                }
+            }
+        }
+    }
+
+    &__digit {
+        color: white;
+        display: block;
+        font: {
+            family: 'Roboto Mono';
+            size: 20px;
+        }
+        position: absolute;
+        transform: translateY(-50%);
+        vertical-align: center;
+        width: 50%;
+
+        @include media('>=medium') {
+            font-size: 30px;
+        }
+
+        @include media('>=large') {
+            font-size: 36px;
+        }
+
+        @for $i from 0 through 10 {
+
+            &:nth-of-type(#{$i}) {
+                top: 100% * $i - 50%;
+            }
+        }
+
+        .tally__number--0 & {
+            right: 0;
+        }
+
+        .tally__number--1 & {
+            left: 0;
+        }
+    }
+
+    &__identifier {
+        font: {
+            family: 'Roboto';
+            size: 16px;
+            weight: 300;
+        }
+        left: -50%;
+        margin: 0;
+        position: absolute;
+        width: 200%;
+        text-align: center;
+        top: 120%;
+
+        @include media('>=medium') {
+            font-size: 18px;
+        }
+
+        @include media('>=large') {
+            font-size: 20px;
+        }
+
+        @include media('>=xlarge') {
+            font-size: 22px;
+        }
+    }
+}

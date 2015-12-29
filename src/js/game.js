@@ -8,10 +8,10 @@ const Game = class {
     constructor(Reversi) {
 
         this.Reversi = Reversi;
+        this.i = this.randomiseTurn();
         this.Placement = new Placement(Reversi, this);
         this.PlayerOne = new PlayerOne(Reversi, this);
         this.PlayerTwo = new PlayerTwo(Reversi, this);
-        this.i = this.randomiseTurn();
 
     }
 
@@ -37,7 +37,9 @@ const Game = class {
         console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
         console.log('');
 
+        this.Reversi.$wrapper.attr('data-turn', this.Reversi.Helper.player);
         this.Reversi.Board.replicateBoard();
+        this.Reversi.Tally.update();
 
         console.log(`Starting ${this.Reversi.Helper.player}'s turn`);
         console.log(this.Reversi.Board.tiles);

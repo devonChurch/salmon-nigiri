@@ -66,86 +66,28 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var Helper = __webpack_require__(6);
+	var $ = __webpack_require__(6);
+	var Helper = __webpack_require__(7);
 	var Board = __webpack_require__(8);
 	var Game = __webpack_require__(11);
 	var Animation = __webpack_require__(15);
+	var Tally = __webpack_require__(16);
 	
 	var Reversi = function Reversi() {
 	    _classCallCheck(this, Reversi);
 	
+	    this.$wrapper = $('#reversi');
 	    this.Helper = new Helper(this);
 	    this.Board = new Board(this);
 	    this.Game = new Game(this);
 	    this.Animation = new Animation(this);
+	    this.Tally = new Tally(this);
 	};
 	
 	module.exports = new Reversi();
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	var $ = __webpack_require__(7);
-	
-	var Helper = (function () {
-	
-		// A series of more “generic” functions uses across the execution.
-	
-		function Helper(Reversi) {
-			_classCallCheck(this, Helper);
-	
-			this.Reversi = Reversi;
-		}
-	
-		_createClass(Helper, [{
-			key: 'randomise',
-			value: function randomise(_ref) {
-				var _ref$min = _ref.min;
-				var min = _ref$min === undefined ? 0 : _ref$min;
-				var max = _ref.max;
-	
-				return Math.floor(Math.random() * (max - min + 1)) + min;
-			}
-		}, {
-			key: 'boolean',
-			get: function get() {
-	
-				return this.randomise({ max: 1 }) % 2 === 0 ? false : true;
-			}
-		}, {
-			key: 'player',
-			get: function get() {
-	
-				return this.Reversi.Game.i % 2 === 0 ? 'PlayerOne' : 'PlayerTwo';
-			}
-		}, {
-			key: 'playerColor',
-			get: function get() {
-	
-				return this.Reversi.Game.i % 2 === 0 ? 'green' : 'blue';
-			}
-		}, {
-			key: 'opponentColor',
-			get: function get() {
-	
-				return this.Reversi.Game.i % 2 === 0 ? 'blue' : 'green';
-			}
-		}]);
-	
-		return Helper;
-	})();
-	
-	module.exports = Helper;
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9361,6 +9303,74 @@
 
 
 /***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var $ = __webpack_require__(6);
+	
+	var Helper = (function () {
+	
+		// A series of more “generic” functions uses across the execution.
+	
+		function Helper(Reversi) {
+			_classCallCheck(this, Helper);
+	
+			this.Reversi = Reversi;
+		}
+	
+		_createClass(Helper, [{
+			key: 'randomise',
+			value: function randomise(_ref) {
+				var _ref$min = _ref.min;
+				var min = _ref$min === undefined ? 0 : _ref$min;
+				var max = _ref.max;
+	
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+		}, {
+			key: 'boolean',
+			get: function get() {
+	
+				return this.randomise({ max: 1 }) % 2 === 0 ? false : true;
+			}
+		}, {
+			key: 'player',
+			get: function get() {
+	
+				return this.Reversi.Game.i % 2 === 0 ? 'PlayerOne' : 'PlayerTwo';
+			}
+		}, {
+			key: 'opponent',
+			get: function get() {
+	
+				return this.Reversi.Game.i % 2 === 0 ? 'PlayerTwo' : 'PlayerOne';
+			}
+		}, {
+			key: 'playerColor',
+			get: function get() {
+	
+				return this.Reversi.Game.i % 2 === 0 ? 'green' : 'blue';
+			}
+		}, {
+			key: 'opponentColor',
+			get: function get() {
+	
+				return this.Reversi.Game.i % 2 === 0 ? 'blue' : 'green';
+			}
+		}]);
+	
+		return Helper;
+	})();
+	
+	module.exports = Helper;
+
+/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9370,7 +9380,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	var Tile = __webpack_require__(9);
 	
 	var Board = (function () {
@@ -9380,7 +9390,7 @@
 	        this.Reversi = Reversi;
 	        this.Tile = new Tile(Reversi, this);
 	
-	        this.$wrapper = $('#board');
+	        this.$wrapper = this.Reversi.$wrapper.find('#board');
 	        this.tally = 8;
 	        this.generateTiles();
 	        this.tiles = null; // generated via this.replicateBoard();
@@ -9429,6 +9439,9 @@
 	
 	            this.tiles = tiles;
 	        }
+	    }, {
+	        key: 'freeTiles',
+	        value: function freeTiles() {}
 	    }]);
 	
 	    return Board;
@@ -9446,7 +9459,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	var sprite = __webpack_require__(10);
 	
 	var Tile = (function () {
@@ -9510,7 +9523,6 @@
 	                _this.Reversi.Animation.flipTile($tile, 'white', color);
 	                _this.activationCallback(i, j);
 	            }, delay);
-	            // }, 0);
 	        }
 	    }, {
 	        key: 'activationCallback',
@@ -9519,8 +9531,6 @@
 	
 	            var tally = (i + 1) * (j + 1);
 	            var total = Math.pow(this.Board.tally, 2);
-	
-	            // console.log(`tally ${tally} === total ${total} (${tally === total})`);
 	
 	            if (tally === total) {
 	
@@ -9537,6 +9547,8 @@
 	            var tally = i * this.Board.tally + j;
 	
 	            return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
+	
+	            // return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
 	        }
 	    }]);
 	
@@ -9621,7 +9633,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	var Placement = __webpack_require__(12);
 	var PlayerOne = __webpack_require__(13);
 	var PlayerTwo = __webpack_require__(14);
@@ -9631,17 +9643,17 @@
 	        _classCallCheck(this, Game);
 	
 	        this.Reversi = Reversi;
+	        this.i = this.randomiseTurn();
 	        this.Placement = new Placement(Reversi, this);
 	        this.PlayerOne = new PlayerOne(Reversi, this);
 	        this.PlayerTwo = new PlayerTwo(Reversi, this);
-	        this.i = this.randomiseTurn();
 	    }
 	
 	    _createClass(Game, [{
 	        key: 'randomiseTurn',
 	        value: function randomiseTurn() {
 	
-	            return 1; // this.Reversi.Helper.randomise({max: 1});
+	            return 0; // this.Reversi.Helper.randomise({max: 1});
 	        }
 	    }, {
 	        key: 'startGame',
@@ -9661,7 +9673,9 @@
 	            console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
 	            console.log('');
 	
+	            this.Reversi.$wrapper.attr('data-turn', this.Reversi.Helper.player);
 	            this.Reversi.Board.replicateBoard();
+	            this.Reversi.Tally.update();
 	
 	            console.log('Starting ' + this.Reversi.Helper.player + '\'s turn');
 	            console.log(this.Reversi.Board.tiles);
@@ -9689,6 +9703,18 @@
 	            // console.log('Ending game');
 	
 	        }
+	    }, {
+	        key: 'noPossibilities',
+	        value: function noPossibilities() {
+	
+	            console.log('no possibile moves for ' + this.Reversi.Helper.player);
+	
+	            // no white tiles = game over
+	            // no moves for one player = move onto opponents turn
+	            // no moves for either player = game over
+	
+	            this.Reversi.Board.freeTiles();
+	        }
 	    }]);
 	
 	    return Game;
@@ -9706,7 +9732,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	
 	var Placement = (function () {
 	    function Placement(Reversi, Game) {
@@ -9788,7 +9814,14 @@
 	            var player = this.Reversi.Helper.player;
 	            console.log(player + '\'s possibilities');
 	            console.log(possibilities);
-	            this.Game[player].startTurn(possibilities);
+	
+	            if (Object.keys(possibilities).length > 0) {
+	
+	                this.Game[player].startTurn(possibilities);
+	            } else {
+	
+	                this.Game.noPossibilities();
+	            }
 	        }
 	    }, {
 	        key: 'tileProperties',
@@ -9891,21 +9924,41 @@
 	            console.log(selection);
 	
 	            var tiles = this.consolidateSelection(selection);
-	            var length = tiles.length;
 	
 	            console.log('');
 	            console.log('tiles to change');
 	            console.log(tiles);
 	
-	            // for (let tile of tiles) {
-	            for (var i = 0; i < length; i += 1) {
+	            var _iteratorNormalCompletion3 = true;
+	            var _didIteratorError3 = false;
+	            var _iteratorError3 = undefined;
 	
-	                var $tile = $('#' + tiles[i]);
-	                var from = $tile.attr('data-color-to');
-	                var to = this.Reversi.Helper.playerColor;
+	            try {
+	                for (var _iterator3 = tiles[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	                    var tile = _step3.value;
 	
-	                if (i === length - 1) this.Reversi.Animation.flipTile($tile, from, to);
+	                    var $tile = $('#' + tile);
+	                    var from = $tile.attr('data-color-to');
+	                    var to = this.Reversi.Helper.playerColor;
+	                    this.Reversi.Animation.flipTile($tile, from, to);
+	                }
+	                // for (let i = 0; i < length; i += 1) {
+	                // if (i === length - 1) this.Reversi.Animation.flipTile($tile, from, to);
+	            } catch (err) {
+	                _didIteratorError3 = true;
+	                _iteratorError3 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion3 && _iterator3['return']) {
+	                        _iterator3['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError3) {
+	                        throw _iteratorError3;
+	                    }
+	                }
 	            }
+	
 	            console.log('');
 	
 	            this.Game.endTurn();
@@ -9945,7 +9998,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	
 	var PlayerOne = (function () {
 	    function PlayerOne(Reversi, Game) {
@@ -9975,43 +10028,9 @@
 	        value: function activateListeners(possibilities) {
 	            var _this = this;
 	
-	            var keys = Object.keys(possibilities);
-	
-	            this.Board.$wrapper.on('mouseenter.playerOne', 'button', function (e) {
-	
-	                if (_this.tileRelevance(keys)) _this.tileEnter(e);
-	            }).on('mouseleave.playerOne', 'button', function (e) {
-	
-	                if (_this.tileRelevance(keys)) _this.tileLeave(e);
-	            }).on('click.playerOne', 'button', function (e) {
-	
-	                if (_this.tileRelevance(keys)) _this.tileClick(e, possibilities);
+	            this.Board.$wrapper.on('click.playerOne', 'button[data-color-to="gray"]', function (e) {
+	                return _this.tileClick(e, possibilities);
 	            });
-	        }
-	    }, {
-	        key: 'tileRelevance',
-	        value: function tileRelevance(keys) {
-	
-	            // console.log(`chacking relevance!`);
-	
-	            // callback.call(this);
-	            // callback();
-	
-	            return true;
-	        }
-	    }, {
-	        key: 'tileEnter',
-	        value: function tileEnter() {
-	
-	            // console.log('tile enter');
-	
-	        }
-	    }, {
-	        key: 'tileLeave',
-	        value: function tileLeave() {
-	
-	            // console.log('tile leave');
-	
 	        }
 	    }, {
 	        key: 'tileClick',
@@ -10048,7 +10067,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	
 	var PlayerTwo = (function () {
 	    function PlayerTwo(Reversi, Game) {
@@ -10173,7 +10192,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var $ = __webpack_require__(7);
+	var $ = __webpack_require__(6);
 	
 	var Animation = (function () {
 	    function Animation(Reversi) {
@@ -10183,9 +10202,6 @@
 	    }
 	
 	    _createClass(Animation, [{
-	        key: 'raiseTile',
-	        value: function raiseTile() {}
-	    }, {
 	        key: 'flipTile',
 	        value: function flipTile($tile, from, to) {
 	
@@ -10252,6 +10268,148 @@
 	})();
 	
 	module.exports = Animation;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var $ = __webpack_require__(6);
+	
+	var Tally = (function () {
+	    function Tally(Reversi) {
+	        _classCallCheck(this, Tally);
+	
+	        this.Reversi = Reversi;
+	        this.$playerOne = Reversi.$wrapper.find('> .tally--one');
+	        this.$playerTwo = Reversi.$wrapper.find('> .tally--two');
+	    }
+	
+	    _createClass(Tally, [{
+	        key: 'update',
+	        value: function update() {
+	
+	            // get colors
+	            // set up each player
+	            // split digit
+	            // set digits
+	
+	            var colors = this.examineBoard();
+	            console.log('colors');
+	            console.log(colors);
+	
+	            this.setTally(colors);
+	        }
+	    }, {
+	        key: 'examineBoard',
+	        value: function examineBoard() {
+	
+	            var tiles = this.Reversi.Board.tiles;
+	            var keys = Object.keys(tiles);
+	            var colors = {};
+	
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var key = _step.value;
+	
+	                    var color = tiles[key];
+	
+	                    if (color !== 'white') colors[color] = colors.hasOwnProperty(color) ? colors[color] += 1 : colors[color] = 1;
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator['return']) {
+	                        _iterator['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            return colors;
+	        }
+	    }, {
+	        key: 'setTally',
+	        value: function setTally(colors) {
+	
+	            var keys = Object.keys(colors);
+	
+	            var _iteratorNormalCompletion2 = true;
+	            var _didIteratorError2 = false;
+	            var _iteratorError2 = undefined;
+	
+	            try {
+	                for (var _iterator2 = keys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                    var key = _step2.value;
+	
+	                    var $tally = key === 'green' ? this.$playerOne : this.$playerTwo;
+	                    var color = colors[key];
+	                    var digits = this.splitDigits(color);
+	
+	                    this.setDigits($tally, digits);
+	                }
+	            } catch (err) {
+	                _didIteratorError2 = true;
+	                _iteratorError2 = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+	                        _iterator2['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError2) {
+	                        throw _iteratorError2;
+	                    }
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'splitDigits',
+	        value: function splitDigits(color) {
+	
+	            color = ('' + color).length < 2 ? '0' + color : '' + color;
+	
+	            var digits = [];
+	
+	            for (var i = 0; i < color.length; i += 1) {
+	
+	                digits[i] = color.substr(i, i + 1);
+	            }
+	
+	            return digits;
+	        }
+	    }, {
+	        key: 'setDigits',
+	        value: function setDigits($tally, digits) {
+	
+	            console.log('convert these numbers...');
+	            console.log(digits);
+	
+	            for (var i = 0; i < digits.length; i += 1) {
+	
+	                $tally.attr('data-digit-' + i, digits[i]);
+	            }
+	        }
+	    }]);
+	
+	    return Tally;
+	})();
+	
+	module.exports = Tally;
 
 /***/ }
 /******/ ]);

@@ -1,10 +1,60 @@
-$board--size: $tile--size * 8;
+$board--size--small: $tile--size--small * 8;
+$board--size--medium: $tile--size--medium * 8;
+$board--size--big: $tile--size--big * 8;
 
 .board {
-    // align-content: flex-start;
     display: flex;
     flex-wrap: wrap;
-    height: $board--size;
+    height: $board--size--small;
+    left: 50%;
     margin: auto;
-    width: $board--size;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: $board--size--small;
+
+    @include media('>=medium') {
+        height: $board--size--medium;
+        width: $board--size--medium;
+    }
+
+    @include media('>=large') {
+        height: $board--size--big;
+        width: $board--size--big;
+    }
+
+    // &:before {
+    //     background: white;
+    //     border: 1px solid white;
+    //     bottom: -20px;
+    //     content: '';
+    //     display: block;
+    //     left: -50%;
+    //     position: absolute;
+    //     right: -50%;
+    //     top: -50px;
+    //     transition: border 0.5s ease-out;
+    //
+    //     @include media('>=medium') {
+    //         bottom: -50px;
+    //         left: -50%;
+    //         right: -50%;
+    //         top: -80px;
+    //     }
+    //
+    //     @include media('>=large') {
+    //         bottom: -50%;
+    //         left: -100px;
+    //         right: -100px;
+    //         top: -50%;
+    //     }
+    //
+    //     [data-turn="PlayerOne"] & {
+    //         border-color: $green--front;
+    //     }
+    //
+    //     [data-turn="PlayerTwo"] & {
+    //         border-color: $blue--front;
+    //     }
+    // }
 }

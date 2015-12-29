@@ -1,14 +1,30 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:700);
 
-$palette: (
-    blueDark: #178bbf,
-    blueMedium: #14b5ea,
-    blueLight: #68d8fd
-);
+// $palette: (
+//     blueDark: #178bbf,
+//     blueMedium: #14b5ea,
+//     blueLight: #68d8fd
+// );
+//
+// @function palette($color) {
+//     @return map-get($palette, $color);
+// }
 
-@function palette($color) {
-    @return map-get($palette, $color);
-}
+$white--front: #f2f2f2;
+$white--side: #cccccc;
+$white--drop: #999999;
+
+$gray--front: #cccccc;
+$gray--side: #999999;
+
+$green--front: #22b573;
+$green--side: #14663e;
+$green--light: lighten($green--front, 55%);
+
+$blue--front: #3fa9f5;
+$blue--side: #276991;
+$blue--light: lighten($blue--front, 35%);
 
 $speeds: (
     base: 0.25s
@@ -20,9 +36,13 @@ $speeds: (
 
 $padding: 1.25rem;
 $radius: 0.3rem;
-$tile--size: 100px;
+$tile--size--small: 55px;
+$tile--size--medium: 92px;
+$tile--size--big: 100px;
 $tile--frames: 13;
-$sprite--height: 140px;
+$sprite--height--small: 77px;
+$sprite--height--medium: 129px;
+$sprite--height--big: 140px;
 
 html {
   box-sizing: border-box;
@@ -34,4 +54,5 @@ html {
 
 body {
     margin: 0;
+    overflow: hidden;
 }

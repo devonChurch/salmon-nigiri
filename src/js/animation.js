@@ -51,6 +51,7 @@ const Animation = class {
             this.flipTile($tile, 'gray', 'white');
 
         }
+
     }
 
 };
