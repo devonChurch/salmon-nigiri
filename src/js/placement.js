@@ -67,7 +67,7 @@ const Placement = class {
 
         if (relevant) {
 
-            this.Reversi.$wrapper.attr('data-turn', player);
+            this.Game.setCurrentPlayer(player);
             this.Game[player].startTurn(possibilities);
 
         } else {

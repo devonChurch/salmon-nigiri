@@ -15,10 +15,10 @@ const Tally = class {
         // Update the players counter in the DOM to relate the current tile
         // tally for each player.
 
-        const colors = this.examineBoard();
-        console.log('colors');
-        console.log(colors);
-        this.setTally(colors);
+        const tally = this.examineBoard();
+        console.log('tally');
+        console.log(tally);
+        this.setTally(tally);
 
     }
 
@@ -29,30 +29,30 @@ const Tally = class {
 
         const tiles = this.Reversi.Board.tiles;
         const keys = Object.keys(tiles);
-        const colors = {green: 0, blue: 0};
+        const tally = {green: 0, blue: 0};
 
         for (let key of keys) {
 
             const color = tiles[key];
 
-            if (color !== 'white') colors[color] += 1;
+            if (color !== 'white') tally[color] += 1;
 
         }
 
-        return colors;
+        return tally;
 
     }
 
-    setTally(colors) {
+    setTally(tally) {
 
         // Set each players counter to color tally value.
 
-        const keys = Object.keys(colors);
+        const keys = Object.keys(tally);
 
         for (let key of keys) {
 
             const $tally = key === 'green' ? this.$playerOne : this.$playerTwo;
-            const color = colors[key];
+            const color = tally[key];
             const digits = this.splitDigits(color);
 
             this.setDigits($tally, digits);

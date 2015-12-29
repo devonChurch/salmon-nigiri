@@ -11,6 +11,7 @@ $board--size--big: $tile--size--big * 8;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    transition: opacity 1s ease-out;
     width: $board--size--small;
 
     @include media('>=medium') {
@@ -23,38 +24,7 @@ $board--size--big: $tile--size--big * 8;
         width: $board--size--big;
     }
 
-    // &:before {
-    //     background: white;
-    //     border: 1px solid white;
-    //     bottom: -20px;
-    //     content: '';
-    //     display: block;
-    //     left: -50%;
-    //     position: absolute;
-    //     right: -50%;
-    //     top: -50px;
-    //     transition: border 0.5s ease-out;
-    //
-    //     @include media('>=medium') {
-    //         bottom: -50px;
-    //         left: -50%;
-    //         right: -50%;
-    //         top: -80px;
-    //     }
-    //
-    //     @include media('>=large') {
-    //         bottom: -50%;
-    //         left: -100px;
-    //         right: -100px;
-    //         top: -50%;
-    //     }
-    //
-    //     [data-turn="PlayerOne"] & {
-    //         border-color: $green--front;
-    //     }
-    //
-    //     [data-turn="PlayerTwo"] & {
-    //         border-color: $blue--front;
-    //     }
-    // }
+    [data-winner] & {
+        opacity: 0.25;
+    }
 }

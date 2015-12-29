@@ -10,7 +10,8 @@
     pointer-events: none;
     position: absolute;
     top: 50%;
-    transition: opacity 0.5s ease-out;
+    transition: opacity 0.5s ease-out,
+                transform 1s ease-out;
     width: $size--small;
     z-index: 10;
 
@@ -41,8 +42,13 @@
             transform: translate(-$board-edge--big - 50px, -50%);
         }
 
-        [data-turn="PlayerOne"] & {
+        [data-turn="PlayerOne"] &,
+        [data-winner="PlayerOne"] & {
             opacity: 1;
+        }
+
+        [data-winner] & {
+            transform: translate(-50px, -50%);
         }
     }
 
@@ -63,8 +69,13 @@
             transform: translate($board-edge--big + 50px, -50%);
         }
 
-        [data-turn="PlayerTwo"] & {
+        [data-turn="PlayerTwo"] &,
+        [data-winner="PlayerTwo"] & {
             opacity: 1;
+        }
+
+        [data-winner] & {
+            transform: translate(50px, -50%);
         }
     }
 
@@ -98,7 +109,8 @@
             background: $green--front;
             border-color: $green--side;
 
-            [data-turn="PlayerOne"] & {
+            [data-turn="PlayerOne"] &,
+            [data-winner="PlayerOne"] & {
                 transform: scale(1);
             }
         }
@@ -107,7 +119,8 @@
             background: $blue--front;
             border-color: $blue--side;
 
-            [data-turn="PlayerTwo"] & {
+            [data-turn="PlayerTwo"] &,
+            [data-winner="PlayerTwo"] & {
                 transform: scale(1);
             }
         }
@@ -190,6 +203,8 @@
         position: absolute;
         width: 200%;
         text-align: center;
+        transform: translateX(30px);
+        transition: transform 0.5s ease-out;
         top: 120%;
 
         @include media('>=medium') {
@@ -202,6 +217,21 @@
 
         @include media('>=xlarge') {
             font-size: 22px;
+        }
+
+        [data-winner="PlayerOne"] .tally--one &,
+        [data-winner="PlayerTwo"] .tally--two & {
+            transform: translateX(0);
+        }
+    }
+
+    &__winner {
+        font-weight: 900;
+        opacity: 0;
+
+        [data-winner="PlayerOne"] .tally--one &,
+        [data-winner="PlayerTwo"] .tally--two & {
+            opacity: 1;
         }
     }
 }

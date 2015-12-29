@@ -2,6 +2,7 @@ const $ = require('jquery');
 const Placement = require('./placement');
 const PlayerOne = require('./player-one');
 const PlayerTwo = require('./player-two');
+const Winner = require('./winner');
 
 const Game = class {
 
@@ -12,6 +13,7 @@ const Game = class {
         this.Placement = new Placement(Reversi, this);
         this.PlayerOne = new PlayerOne(Reversi, this);
         this.PlayerTwo = new PlayerTwo(Reversi, this);
+        this.Winner = new Winner(Reversi, this);
 
     }
 
@@ -22,8 +24,6 @@ const Game = class {
     }
 
     startGame() {
-
-        // console.log('Starting game');
 
         this.startTurn();
 
@@ -63,11 +63,12 @@ const Game = class {
 
     endGame() {
 
-        this.Reversi.Board.replicateBoard();
-        console.log(this.Reversi.Board.tiles);
-        this.Reversi.Tally.update();
         console.log('Ending game');
-        this.Reversi.$wrapper.removeAttr('data-turn');
+
+        this.Reversi.Board.replicateBoard();
+        this.Reversi.Tally.update();
+        this.setCurrentPlayer('none');
+        this.Winner.congratulations();
 
     }
 
@@ -81,19 +82,15 @@ const Game = class {
 
         console.log(`status = ${this.PlayerOne.relevant} ${this.PlayerTwo.relevant}`);
 
+        const action = !this.PlayerOne.relevant && !this.PlayerTwo.relevant ? 'endGame' : 'endTurn';
 
-        if (!this.PlayerOne.relevant && !this.PlayerTwo.relevant) {
+        this[action]();
 
-            this.endGame();
+    }
 
-        } else {
+    setCurrentPlayer(player) {
 
-            console.log('');
-            console.log('---> no relevant moreves this turn!');
-            console.log('');
-            this.endTurn();
-
-        }
+        this.Reversi.$wrapper.attr('data-turn', player);
 
     }
 
