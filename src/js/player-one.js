@@ -7,6 +7,7 @@ const PlayerOne = class {
         this.Reversi = Reversi;
         this.Board = Reversi.Board;
         this.Game = Game;
+        this.relevant = true;
 
     }
 

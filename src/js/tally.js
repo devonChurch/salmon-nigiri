@@ -12,30 +12,30 @@ const Tally = class {
 
     update() {
 
-        // get colors
-        // set up each player
-        // split digit
-        // set digits
+        // Update the players counter in the DOM to relate the current tile
+        // tally for each player.
 
         const colors = this.examineBoard();
-        console.log(`colors`);
+        console.log('colors');
         console.log(colors);
-
         this.setTally(colors);
 
     }
 
     examineBoard() {
 
+        // Loop through the JS object version of the board tallying up only the
+        // Green (player one) and Blue (player two) tiles.
+
         const tiles = this.Reversi.Board.tiles;
         const keys = Object.keys(tiles);
-        const colors = {};
+        const colors = {green: 0, blue: 0};
 
         for (let key of keys) {
 
             const color = tiles[key];
 
-            if (color !== 'white') colors[color] = colors.hasOwnProperty(color) ? colors[color] += 1 : colors[color] = 1;
+            if (color !== 'white') colors[color] += 1;
 
         }
 
@@ -44,6 +44,8 @@ const Tally = class {
     }
 
     setTally(colors) {
+
+        // Set each players counter to color tally value.
 
         const keys = Object.keys(colors);
 
@@ -61,6 +63,11 @@ const Tally = class {
 
     splitDigits(color) {
 
+        // The counter animation controls each of the two digit in number
+        // independently. In that regard we split the current tile tally into
+        // two numbers - if the number is only one digit then we append a zero
+        // at the front.
+
         color = `${color}`.length < 2 ? `0${color}` : `${color}`;
 
         const digits = [];
@@ -76,8 +83,8 @@ const Tally = class {
 
     setDigits($tally, digits) {
 
-        console.log('convert these numbers...');
-        console.log(digits);
+        // Replicate the two split digits into the DOM by altering the data
+        // attribute to animate them into place.
 
         for (let i = 0; i < digits.length; i += 1) {
 

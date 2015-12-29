@@ -59,11 +59,15 @@ const Placement = class {
         // utilised in their player specific scenarios.
 
         const player = this.Reversi.Helper.player;
+        const relevant = Object.keys(possibilities).length > 0;
+
+        this.Game[player].relevant = relevant;
         console.log(`${player}'s possibilities`);
         console.log(possibilities);
 
-        if (Object.keys(possibilities).length > 0) {
+        if (relevant) {
 
+            this.Reversi.$wrapper.attr('data-turn', player);
             this.Game[player].startTurn(possibilities);
 
         } else {
@@ -147,17 +151,11 @@ const Placement = class {
 
     performPlacement(selection) {
 
-        // Xxxxxxx.
-
-        console.log('');
-        console.log('selection sent through for placement');
-        console.log(selection);
+        // Takes the chosen tile possibility and its corresponding effected
+        // tiles (chosen by player one or two) and replicates those changes onto
+        // the board.
 
         const tiles = this.consolidateSelection(selection);
-
-        console.log('');
-        console.log('tiles to change');
-        console.log(tiles);
 
         for (let tile of tiles) {
 
@@ -167,9 +165,6 @@ const Placement = class {
             this.Reversi.Animation.flipTile($tile, from, to);
 
         }
-        // for (let i = 0; i < length; i += 1) {
-        // if (i === length - 1) this.Reversi.Animation.flipTile($tile, from, to);
-        console.log('');
 
         this.Game.endTurn();
 
@@ -177,7 +172,8 @@ const Placement = class {
 
     consolidateSelection(selection) {
 
-        // Xxxxxxx.
+        // Take ALL effected tiles for this turn and places their keys into a
+        // simple array.
 
         const key = Object.keys(selection);
         const tiles = [`${key}`];

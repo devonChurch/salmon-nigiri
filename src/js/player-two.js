@@ -6,6 +6,7 @@ const PlayerTwo = class {
 
         this.Reversi = Reversi;
         this.Game = Game;
+        this.relevant = true;
 
     }
 

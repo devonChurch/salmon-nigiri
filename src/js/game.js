@@ -17,7 +17,7 @@ const Game = class {
 
     randomiseTurn() {
 
-        return 0; // this.Reversi.Helper.randomise({max: 1});
+        return this.Reversi.Helper.randomise({max: 1});
 
     }
 
@@ -37,7 +37,6 @@ const Game = class {
         console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
         console.log('');
 
-        this.Reversi.$wrapper.attr('data-turn', this.Reversi.Helper.player);
         this.Reversi.Board.replicateBoard();
         this.Reversi.Tally.update();
 
@@ -64,7 +63,11 @@ const Game = class {
 
     endGame() {
 
-        // console.log('Ending game');
+        this.Reversi.Board.replicateBoard();
+        console.log(this.Reversi.Board.tiles);
+        this.Reversi.Tally.update();
+        console.log('Ending game');
+        this.Reversi.$wrapper.removeAttr('data-turn');
 
     }
 
@@ -76,7 +79,21 @@ const Game = class {
         // no moves for one player = move onto opponents turn
         // no moves for either player = game over
 
-        this.Reversi.Board.freeTiles();
+        console.log(`status = ${this.PlayerOne.relevant} ${this.PlayerTwo.relevant}`);
+
+
+        if (!this.PlayerOne.relevant && !this.PlayerTwo.relevant) {
+
+            this.endGame();
+
+        } else {
+
+            console.log('');
+            console.log('---> no relevant moreves this turn!');
+            console.log('');
+            this.endTurn();
+
+        }
 
     }
 

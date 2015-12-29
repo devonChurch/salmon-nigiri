@@ -15,6 +15,10 @@ const Tile = class {
 
     generateTile(i, j) {
 
+        // Build out all 64 individual tiles and place them onto the board. The
+        // board has a certain color arrangement when a new game starts so we
+        // accomodate that during the looping process.
+
         const color = this.tileColor(i, j);
         const svg = this.generateSvg(i, j);
         const $tile = this.injectTile(svg);
@@ -23,6 +27,8 @@ const Tile = class {
     }
 
     generateSvg(i, j) {
+
+        // Creating the SVG scaffold and adding in any unique properties.
 
         return `
             <button id="${j}-${i}" class="tile">
@@ -51,6 +57,9 @@ const Tile = class {
 
     generateFrames() {
 
+        // Builds out the frames for the tile “flip” animation by taking the SVG
+        // data from the sprite module’s array.
+
         let frames = '';
 
         for (let i = 0; i < this.frames; i += 1) {
@@ -65,6 +74,8 @@ const Tile = class {
 
     injectTile(svg) {
 
+        // Place the tile on the board.
+
         const $tile = $(svg);
 
         this.Board.$wrapper.append($tile);
@@ -74,6 +85,10 @@ const Tile = class {
     }
 
     activateTile(i, j, color, $tile) {
+
+        // Flip each tile independently once  it has been added to the DOM. We
+        // use a delay to create a sweeping motion going diagonally from the
+        // Left, Top corner to the Bottom, Right corner of the board.
 
         const delay = 1000 / this.Board.tally * 2 * (i + j + 1);
 
@@ -88,6 +103,10 @@ const Tile = class {
 
     activationCallback(i, j) {
 
+        // To make sure we do not start the game before the “flip” intro
+        // animations are finished we run  quick check upon each animation call
+        // to see if we are targeting the last tile on the board.
+
         const tally = (i + 1) * (j + 1);
         const total = Math.pow(this.Board.tally, 2);
 
@@ -97,7 +116,7 @@ const Tile = class {
 
                 this.Reversi.Game.startGame();
 
-            }, 2000);
+            }, 1000);
 
         }
 
@@ -106,11 +125,14 @@ const Tile = class {
 
     tileColor(i, j) {
 
+        // Checks what tile is currently being referenced and decides what color
+        // it needs to be in order to create the starting tile configuration.
+
         const tally = (i * this.Board.tally) + j;
 
-        return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
+        // return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
 
-        // return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
+        return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
 
     }
 

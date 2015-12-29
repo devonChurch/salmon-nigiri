@@ -1,3 +1,5 @@
+// Holds each of the tile “flip” animation frames.
+
 const sprite = [
 
     // --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -

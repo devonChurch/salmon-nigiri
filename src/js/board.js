@@ -62,11 +62,6 @@ const Board = class {
 
     }
 
-    freeTiles() {
-
-
-    }
-
 };
 
 module.exports = Board;
