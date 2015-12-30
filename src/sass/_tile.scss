@@ -1,0 +1,204 @@
+$tile--flip: 0.5s;
+
+@keyframes tile--jump {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+.tile {
+    background: transparent;
+    border: 0;
+    cursor: default;
+    height: $tile--size--small;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    width: $tile--size--small;
+
+    @include media('>=medium') {
+        height: $tile--size--medium;
+        width: $tile--size--medium;
+    }
+
+    @include media('>=large') {
+        height: $tile--size--big;
+        width: $tile--size--big;
+    }
+
+    &--flip &__sprite {
+        transform: translateX($tile--size--small * ($tile--frames - 1) * -1);
+        transition-duration: $tile--flip;
+
+        @include media('>=medium') {
+            transform: translateX($tile--size--medium * ($tile--frames - 1) * -1);
+        }
+
+        @include media('>=large') {
+            transform: translateX($tile--size--big * ($tile--frames - 1) * -1);
+        }
+    }
+
+    &__hole,
+    &__base,
+    &__mask {
+        bottom: 0;
+        height: $sprite--height--small;
+        left: 0;
+        position: absolute;
+        width: $tile--size--small;
+
+        @include media('>=medium') {
+            height: $sprite--height--medium;
+            width: $tile--size--medium;
+        }
+
+        @include media('>=large') {
+            height: $sprite--height--big;
+            width: $tile--size--big;
+        }
+    }
+
+    &__hole {
+
+        &__side {
+            fill: $white--side;
+        }
+
+        &__drop {
+            fill: $white--drop;
+        }
+    }
+
+    &__base {
+        fill: white;
+    }
+
+    &__mask {
+        overflow: hidden;
+        transition: transform 0.25s ease-out;
+
+        .tile--flip & {
+            animation: tile--jump $tile--flip ease-in-out;
+        }
+    }
+
+    &__sprite {
+        height: $sprite--height--small;
+        transform: translateX(0);
+        transition: transform 0s steps($tile--frames - 1);
+        width: $tile--size--small * $tile--frames;
+
+        @include media('>=medium') {
+            height: $sprite--height--medium;
+            width: $tile--size--medium * $tile--frames;
+        }
+
+        @include media('>=large') {
+            height: $sprite--height--big;
+            width: $tile--size--big * $tile--frames;
+        }
+    }
+
+  // Setting the front and sides of the generic tiles to their respective shade
+  // of white.
+
+    &__front {
+
+        &--1,
+        &--2 {
+          fill: $white--front;
+          transition: color 1s ease-in;
+        }
+
+    }
+
+    &__side {
+
+        &--1,
+        &--2 {
+            fill: $white--side;
+        }
+
+    }
+
+    &[data-color-from="gray"] & {
+
+        &__front--1 {
+            fill: $gray--front;
+        }
+
+        &__side--1 {
+            fill: $gray--side;
+        }
+    }
+
+    &[data-color-to="gray"] & {
+
+        &__front--2 {
+            fill: $gray--front;
+        }
+
+        &__side--2 {
+            fill: $gray--side;
+        }
+    }
+
+    &[data-color-to="gray"] {
+        cursor: pointer;
+
+        &:hover .tile__mask {
+            transform: translateY(5px);
+        }
+    }
+
+    &[data-color-from="green"] & {
+
+        &__front--1 {
+            fill: $green--front;
+        }
+
+        &__side--1 {
+            fill: $green--side;
+        }
+    }
+
+    &[data-color-to="green"] & {
+
+        &__front--2 {
+            fill: $green--front;
+        }
+
+        &__side--2 {
+            fill: $green--side;
+        }
+    }
+
+    &[data-color-from="blue"] & {
+
+        &__front--1 {
+            fill: $blue--front;
+        }
+
+        &__side--1 {
+            fill: $blue--side;
+        }
+    }
+
+    &[data-color-to="blue"] & {
+
+        &__front--2 {
+            fill: $blue--front;
+        }
+
+        &__side--2 {
+            fill: $blue--side;
+        }
+    }
+}

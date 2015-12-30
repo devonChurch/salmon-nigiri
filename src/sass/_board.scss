@@ -1,0 +1,30 @@
+$board--size--small: $tile--size--small * 8;
+$board--size--medium: $tile--size--medium * 8;
+$board--size--big: $tile--size--big * 8;
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    height: $board--size--small;
+    left: 50%;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 1s ease-out;
+    width: $board--size--small;
+
+    @include media('>=medium') {
+        height: $board--size--medium;
+        width: $board--size--medium;
+    }
+
+    @include media('>=large') {
+        height: $board--size--big;
+        width: $board--size--big;
+    }
+
+    [data-winner] & {
+        opacity: 0.25;
+    }
+}
