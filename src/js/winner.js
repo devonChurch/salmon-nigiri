@@ -49,15 +49,19 @@ const Winner = class {
 
     activateReplayCta() {
 
-        this.toggleReplayCta('add');
+        setTimeout(() => {
 
-        this.$replay.one('click', () => {
+            this.toggleReplayCta('add');
 
-            this.toggleReplayCta('remove');
-            this.removeWinnerAttribute();
-            this.Game.startGame();
+            this.$replay.one('click', () => {
 
-        });
+                this.toggleReplayCta('remove');
+                this.removeWinnerAttribute();
+                this.Game.startGame();
+
+            });
+
+        }, 1000);
 
     }
 
