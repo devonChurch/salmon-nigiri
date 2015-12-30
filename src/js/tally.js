@@ -7,6 +7,57 @@ const Tally = class {
         this.Reversi = Reversi;
         this.$playerOne = Reversi.$wrapper.find('> .tally--one');
         this.$playerTwo = Reversi.$wrapper.find('> .tally--two');
+        this.buildTally();
+
+    }
+
+    buildTally() {
+
+        const html = this.generateShell();
+
+        this.$playerOne.prepend(html);
+        this.$playerTwo.prepend(html);
+
+    }
+
+    generateShell() {
+
+        return `
+            <div class="tally__ball">
+                <div class="tally__overflow">
+                    ${this.generateNumbers()}
+                </div>
+            </div>
+        `;
+
+    }
+
+    generateNumbers() {
+
+        const digits = this.generateDigits();
+        let html = '';
+
+        for (let i = 0; i < 2; i += 1) {
+
+            html += `<div class="tally__number tally__number--${i}">${digits}</div>`;
+
+        }
+
+        return html;
+
+    }
+
+    generateDigits() {
+
+        let html = '';
+
+        for (let i = 0; i < 10; i += 1) {
+
+            html += `<span class="tally__digit">${i}</span>`;
+
+        }
+
+        return html;
 
     }
 
