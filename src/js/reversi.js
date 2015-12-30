@@ -11,10 +11,11 @@ const Reversi = class {
 
         this.$wrapper = $('#reversi');
         this.Helper = new Helper(this);
+        this.Tally = new Tally(this);
         this.Board = new Board(this);
         this.Game = new Game(this);
         this.Animation = new Animation(this);
-        this.Tally = new Tally(this);
+
 
     }
 

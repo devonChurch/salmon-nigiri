@@ -45,12 +45,17 @@ const Board = class {
 
         const $tiles = this.$tiles;
 
-        for (let i = 0; i < $tiles.length; i += 1) {
+        for (let i = 0; i < this.tally; i += 1) {
 
-            const color = this.Tile.tileColor(i);
-            const $tile = $tiles.eq(i);
+            for (let j = 0; j < this.tally; j += 1) {
 
-            this.Tile.activateTile(i, color, $tile);
+                const color = this.Tile.tileColor(i, j);
+                const eq = j + (this.tally * i);
+                const $tile = $tiles.eq(eq);
+
+                this.Tile.activateTile(i, j, color, $tile);
+
+            }
 
         }
 

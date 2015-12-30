@@ -14,10 +14,6 @@ const Game = class {
         this.PlayerOne = new PlayerOne(Reversi, this);
         this.PlayerTwo = new PlayerTwo(Reversi, this);
         this.Winner = new Winner(Reversi, this);
-
-        //
-        //
-        //
         this.startGame();
 
     }
@@ -30,28 +26,16 @@ const Game = class {
 
     startGame() {
 
-        console.log('Starting game');
-
         this.setCurrentPlayer('none');
         this.Reversi.Board.resetBoard();
-        // this.startTurn();
+        this.Reversi.Tally.resetTally();
 
     }
 
     startTurn() {
 
-        console.log('');
-        console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-        console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-        console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-        console.log('');
-
         this.Reversi.Board.replicateBoard();
         this.Reversi.Tally.update();
-
-        console.log(`Starting ${this.Reversi.Helper.player}'s turn`);
-        console.log(this.Reversi.Board.tiles);
-
         this.Placement.findPossibilities();
 
     }
@@ -59,9 +43,6 @@ const Game = class {
     endTurn() {
 
         setTimeout(() => {
-
-            console.log('');
-            console.log(`Ending ${this.Reversi.Helper.player}'s turn`);
 
             this.i += 1;
             this.startTurn();
@@ -72,8 +53,6 @@ const Game = class {
 
     endGame() {
 
-        console.log('Ending game');
-
         this.Reversi.Board.replicateBoard();
         this.Reversi.Tally.update();
         this.setCurrentPlayer('none');
@@ -82,14 +61,6 @@ const Game = class {
     }
 
     noPossibilities() {
-
-        console.log(`no possibile moves for ${this.Reversi.Helper.player}`);
-
-        // no white tiles = game over
-        // no moves for one player = move onto opponents turn
-        // no moves for either player = game over
-
-        console.log(`status = ${this.PlayerOne.relevant} ${this.PlayerTwo.relevant}`);
 
         const action = !this.PlayerOne.relevant && !this.PlayerTwo.relevant ? 'endGame' : 'endTurn';
 

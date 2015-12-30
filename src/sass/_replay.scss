@@ -1,0 +1,52 @@
+.replay {
+    background: lighten(black, 20%);
+    border: 2px solid black;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    font: {
+        family: 'Roboto';
+        size: 14px;
+        weight: 900;
+    }
+    left: 50%;
+    margin: {
+        left: 9999px;
+        top: 140px;
+    }
+    opacity: 0;
+    padding: 6px 20px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: {
+        delay: 0s, 0s, 0.25s;
+        duration: 0.25s, 0.25s, 0s;
+        property: background, opacity, margin;
+    }
+    z-index: 20;
+
+    @include media('>=medium') {
+        font-size: 16px;
+        margin-top: 180px;
+        padding: 8px 25px;
+    }
+
+    @include media('>=large') {
+        font-size: 18px;
+        margin-top: 200px;
+        padding: 10px 30px;
+    }
+
+    &:hover,
+    &:focus {
+        background: lighten(black, 30%);
+    }
+
+    &--active {
+        opacity: 1;
+        margin-left: 0;
+        transition-delay: 0s;
+    }
+}

@@ -35,7 +35,7 @@ const Tally = class {
 
             const color = tiles[key];
 
-            if (color !== 'white') tally[color] += 1;
+            if (color !== 'white' && color !== 'gray') tally[color] += 1;
 
         }
 
@@ -91,6 +91,14 @@ const Tally = class {
             $tally.attr(`data-digit-${i}`, digits[i]);
 
         }
+
+    }
+
+    resetTally() {
+
+        const tally = {green: 2, blue: 2};
+
+        this.setTally(tally);
 
     }
 

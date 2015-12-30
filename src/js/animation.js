@@ -8,13 +8,13 @@ const Animation = class {
 
     }
 
-    flipTile($tile, from, to) {
+    flipTile($tile, color) {
 
         $tile
             .removeClass('tile--flip')
             .attr({
-                'data-color-from': from,
-                'data-color-to': to
+                'data-color-from': $tile.attr('data-color-to'),
+                'data-color-to': color
             });
 
         setTimeout(() => {
@@ -34,7 +34,7 @@ const Animation = class {
 
             const $tile = $wrapper.find(`> #${key}`);
 
-            this.flipTile($tile, 'white', 'gray');
+            this.flipTile($tile, 'gray');
 
         }
 
@@ -48,7 +48,7 @@ const Animation = class {
 
             const $tile = $tiles.eq(i);
 
-            this.flipTile($tile, 'gray', 'white');
+            this.flipTile($tile, 'white');
 
         }
 

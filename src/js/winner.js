@@ -6,6 +6,7 @@ const Winner = class {
 
         this.Reversi = Reversi;
         this.Game = Game;
+        this.$replay = this.Reversi.$wrapper.find('> #replay');
 
     }
 
@@ -38,6 +39,7 @@ const Winner = class {
 
         setTimeout(() => {
 
+
             this.addWinnerAttribute(winner);
             this.activateReplayCta();
 
@@ -47,8 +49,11 @@ const Winner = class {
 
     activateReplayCta() {
 
-        this.Reversi.$wrapper.one('click', () => {
+        this.toggleReplayCta('add');
 
+        this.$replay.one('click', () => {
+
+            this.toggleReplayCta('remove');
             this.removeWinnerAttribute();
             this.Game.startGame();
 
@@ -65,6 +70,12 @@ const Winner = class {
     removeWinnerAttribute() {
 
         this.Reversi.$wrapper.removeAttr('data-winner');
+
+    }
+
+    toggleReplayCta(action) {
+
+        this.$replay[`${action}Class`]('replay--active');
 
     }
 

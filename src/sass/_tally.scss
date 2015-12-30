@@ -10,6 +10,8 @@
     pointer-events: none;
     position: absolute;
     top: 50%;
+    transition: opacity 0.5s ease-out,
+                transform 1s ease-out;
     width: $size--small;
     z-index: 10;
 
@@ -27,10 +29,15 @@
     // transitions after the [data-turn] attribute has been injected via JS (the
     // modules no load in the right place statically).
 
-    [data-turn] & {
-        transition: opacity 0.5s ease-out,
-                    transform 1s ease-out;
-    }
+    // [data-turn="PlayerOne"] &,
+    // [data-turn="PlayerTwo"] & {
+    //
+    //     &,
+    //     &__winner {
+    //         transition: opacity 0.5s ease-out,
+    //                     transform 1s ease-out;
+    //     }
+    // }
 
     &--one {
         color: $green--front;
@@ -91,7 +98,6 @@
         border-radius: 50%;
         height: 100%;
         left: 0;
-        overflow: hidden;
         position: absolute;
         top: 0;
         transform: scale(0.75);
@@ -131,6 +137,15 @@
                 transform: scale(1);
             }
         }
+    }
+
+    &__overflow {
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
 
     &__number {

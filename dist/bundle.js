@@ -70,18 +70,18 @@
 	var Helper = __webpack_require__(7);
 	var Board = __webpack_require__(8);
 	var Game = __webpack_require__(11);
-	var Animation = __webpack_require__(15);
-	var Tally = __webpack_require__(16);
+	var Animation = __webpack_require__(16);
+	var Tally = __webpack_require__(17);
 	
 	var Reversi = function Reversi() {
 	    _classCallCheck(this, Reversi);
 	
 	    this.$wrapper = $('#reversi');
 	    this.Helper = new Helper(this);
+	    this.Tally = new Tally(this);
 	    this.Board = new Board(this);
 	    this.Game = new Game(this);
 	    this.Animation = new Animation(this);
-	    this.Tally = new Tally(this);
 	};
 	
 	module.exports = new Reversi();
@@ -9418,6 +9418,26 @@
 	            }
 	        }
 	    }, {
+	        key: 'resetBoard',
+	        value: function resetBoard() {
+	
+	            console.log('reset board');
+	
+	            var $tiles = this.$tiles;
+	
+	            for (var i = 0; i < this.tally; i += 1) {
+	
+	                for (var j = 0; j < this.tally; j += 1) {
+	
+	                    var color = this.Tile.tileColor(i, j);
+	                    var eq = j + this.tally * i;
+	                    var $tile = $tiles.eq(eq);
+	
+	                    this.Tile.activateTile(i, j, color, $tile);
+	                }
+	            }
+	        }
+	    }, {
 	        key: 'replicateBoard',
 	        value: function replicateBoard() {
 	
@@ -9439,9 +9459,6 @@
 	
 	            this.tiles = tiles;
 	        }
-	    }, {
-	        key: 'freeTiles',
-	        value: function freeTiles() {}
 	    }]);
 	
 	    return Board;
@@ -9477,20 +9494,27 @@
 	        key: 'generateTile',
 	        value: function generateTile(i, j) {
 	
-	            var color = this.tileColor(i, j);
+	            // Build out all 64 individual tiles and place them onto the board. The
+	            // board has a certain color arrangement when a new game starts so we
+	            // accomodate that during the looping process.
+	
 	            var svg = this.generateSvg(i, j);
-	            var $tile = this.injectTile(svg);
-	            this.activateTile(i, j, color, $tile);
+	            this.injectTile(svg);
 	        }
 	    }, {
 	        key: 'generateSvg',
 	        value: function generateSvg(i, j) {
+	
+	            // Creating the SVG scaffold and adding in any unique properties.
 	
 	            return '\n            <button id="' + j + '-' + i + '" class="tile">\n\n                <svg class="tile__hole" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" viewBox="0 0 ' + this.tileSize + ' ' + this.spriteHeight + '" xml:space="preserve">\n                    <path class="tile__hole__side" d="M90,140H10V35c0-2.8,2.2-5,5-5h70c2.8,0,5,2.2,5,5V140z"/>\n                    <path class="tile__hole__drop" d="M90,140H10V46.2c0-3.4,2.2-6.2,5-6.2h70c2.8,0,5,2.8,5,6.2V140z"/>\n                </svg>\n\n                <div class="tile__mask">\n\n                    <svg class="tile__sprite" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ' + this.frames * this.tileSize + ' ' + this.spriteHeight + '" xml:space="preserve">\n                        ' + this.generateFrames() + '\n                    </svg>\n\n                </div>\n\n                <svg class="tile__base" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ' + this.tileSize + ' ' + this.spriteHeight + '" xml:space="preserve">\n                    <path d="M90,105c0,2.8-2.2,5-5,5H15c-2.8,0-5-2.2-5-5V70H0v70h100V70H90V105z"/>\n                </svg>\n\n            </button>\n        ';
 	        }
 	    }, {
 	        key: 'generateFrames',
 	        value: function generateFrames() {
+	
+	            // Builds out the frames for the tile “flip” animation by taking the SVG
+	            // data from the sprite module’s array.
 	
 	            var frames = '';
 	
@@ -9505,6 +9529,8 @@
 	        key: 'injectTile',
 	        value: function injectTile(svg) {
 	
+	            // Place the tile on the board.
+	
 	            var $tile = $(svg);
 	
 	            this.Board.$wrapper.append($tile);
@@ -9516,11 +9542,15 @@
 	        value: function activateTile(i, j, color, $tile) {
 	            var _this = this;
 	
+	            // Flip each tile independently once  it has been added to the DOM. We
+	            // use a delay to create a sweeping motion going diagonally from the
+	            // Left, Top corner to the Bottom, Right corner of the board.
+	
 	            var delay = 1000 / this.Board.tally * 2 * (i + j + 1);
 	
 	            setTimeout(function () {
 	
-	                _this.Reversi.Animation.flipTile($tile, 'white', color);
+	                _this.Reversi.Animation.flipTile($tile, color);
 	                _this.activationCallback(i, j);
 	            }, delay);
 	        }
@@ -9529,6 +9559,10 @@
 	        value: function activationCallback(i, j) {
 	            var _this2 = this;
 	
+	            // To make sure we do not start the game before the “flip” intro
+	            // animations are finished we run  quick check upon each animation call
+	            // to see if we are targeting the last tile on the board.
+	
 	            var tally = (i + 1) * (j + 1);
 	            var total = Math.pow(this.Board.tally, 2);
 	
@@ -9536,13 +9570,16 @@
 	
 	                setTimeout(function () {
 	
-	                    _this2.Reversi.Game.startGame();
-	                }, 2000);
+	                    _this2.Reversi.Game.startTurn();
+	                }, 1000);
 	            }
 	        }
 	    }, {
 	        key: 'tileColor',
 	        value: function tileColor(i, j) {
+	
+	            // Checks what tile is currently being referenced and decides what color
+	            // it needs to be in order to create the starting tile configuration.
 	
 	            var tally = i * this.Board.tally + j;
 	
@@ -9561,6 +9598,8 @@
 /* 10 */
 /***/ function(module, exports) {
 
+	// Holds each of the tile “flip” animation frames.
+	
 	"use strict";
 	
 	var sprite = [
@@ -9637,6 +9676,7 @@
 	var Placement = __webpack_require__(12);
 	var PlayerOne = __webpack_require__(13);
 	var PlayerTwo = __webpack_require__(14);
+	var Winner = __webpack_require__(15);
 	
 	var Game = (function () {
 	    function Game(Reversi) {
@@ -9647,39 +9687,30 @@
 	        this.Placement = new Placement(Reversi, this);
 	        this.PlayerOne = new PlayerOne(Reversi, this);
 	        this.PlayerTwo = new PlayerTwo(Reversi, this);
+	        this.Winner = new Winner(Reversi, this);
+	        this.startGame();
 	    }
 	
 	    _createClass(Game, [{
 	        key: 'randomiseTurn',
 	        value: function randomiseTurn() {
 	
-	            return 0; // this.Reversi.Helper.randomise({max: 1});
+	            return this.Reversi.Helper.randomise({ max: 1 });
 	        }
 	    }, {
 	        key: 'startGame',
 	        value: function startGame() {
 	
-	            // console.log('Starting game');
-	
-	            this.startTurn();
+	            this.setCurrentPlayer('none');
+	            this.Reversi.Board.resetBoard();
+	            this.Reversi.Tally.resetTally();
 	        }
 	    }, {
 	        key: 'startTurn',
 	        value: function startTurn() {
 	
-	            console.log('');
-	            console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-	            console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-	            console.log('* * * * * * * * * * * * * * * * * * * * * * * * * * * * ');
-	            console.log('');
-	
-	            this.Reversi.$wrapper.attr('data-turn', this.Reversi.Helper.player);
 	            this.Reversi.Board.replicateBoard();
 	            this.Reversi.Tally.update();
-	
-	            console.log('Starting ' + this.Reversi.Helper.player + '\'s turn');
-	            console.log(this.Reversi.Board.tiles);
-	
 	            this.Placement.findPossibilities();
 	        }
 	    }, {
@@ -9689,9 +9720,6 @@
 	
 	            setTimeout(function () {
 	
-	                console.log('');
-	                console.log('Ending ' + _this.Reversi.Helper.player + '\'s turn');
-	
 	                _this.i += 1;
 	                _this.startTurn();
 	            }, 1000);
@@ -9700,20 +9728,24 @@
 	        key: 'endGame',
 	        value: function endGame() {
 	
-	            // console.log('Ending game');
-	
+	            this.Reversi.Board.replicateBoard();
+	            this.Reversi.Tally.update();
+	            this.setCurrentPlayer('none');
+	            this.Winner.congratulations();
 	        }
 	    }, {
 	        key: 'noPossibilities',
 	        value: function noPossibilities() {
 	
-	            console.log('no possibile moves for ' + this.Reversi.Helper.player);
+	            var action = !this.PlayerOne.relevant && !this.PlayerTwo.relevant ? 'endGame' : 'endTurn';
 	
-	            // no white tiles = game over
-	            // no moves for one player = move onto opponents turn
-	            // no moves for either player = game over
+	            this[action]();
+	        }
+	    }, {
+	        key: 'setCurrentPlayer',
+	        value: function setCurrentPlayer(player) {
 	
-	            this.Reversi.Board.freeTiles();
+	            this.Reversi.$wrapper.attr('data-turn', player);
 	        }
 	    }]);
 	
@@ -9812,11 +9844,16 @@
 	            // utilised in their player specific scenarios.
 	
 	            var player = this.Reversi.Helper.player;
+	            var relevant = Object.keys(possibilities).length > 0;
+	
+	            this.Game[player].relevant = relevant;
 	            console.log(player + '\'s possibilities');
 	            console.log(possibilities);
+	            console.log('relevant ' + relevant);
 	
-	            if (Object.keys(possibilities).length > 0) {
+	            if (relevant) {
 	
+	                this.Game.setCurrentPlayer(player);
 	                this.Game[player].startTurn(possibilities);
 	            } else {
 	
@@ -9917,17 +9954,11 @@
 	        key: 'performPlacement',
 	        value: function performPlacement(selection) {
 	
-	            // Xxxxxxx.
-	
-	            console.log('');
-	            console.log('selection sent through for placement');
-	            console.log(selection);
+	            // Takes the chosen tile possibility and its corresponding effected
+	            // tiles (chosen by player one or two) and replicates those changes onto
+	            // the board.
 	
 	            var tiles = this.consolidateSelection(selection);
-	
-	            console.log('');
-	            console.log('tiles to change');
-	            console.log(tiles);
 	
 	            var _iteratorNormalCompletion3 = true;
 	            var _didIteratorError3 = false;
@@ -9938,12 +9969,10 @@
 	                    var tile = _step3.value;
 	
 	                    var $tile = $('#' + tile);
-	                    var from = $tile.attr('data-color-to');
-	                    var to = this.Reversi.Helper.playerColor;
-	                    this.Reversi.Animation.flipTile($tile, from, to);
+	                    var color = this.Reversi.Helper.playerColor;
+	
+	                    this.Reversi.Animation.flipTile($tile, color);
 	                }
-	                // for (let i = 0; i < length; i += 1) {
-	                // if (i === length - 1) this.Reversi.Animation.flipTile($tile, from, to);
 	            } catch (err) {
 	                _didIteratorError3 = true;
 	                _iteratorError3 = err;
@@ -9959,17 +9988,18 @@
 	                }
 	            }
 	
-	            console.log('');
-	
 	            this.Game.endTurn();
 	        }
 	    }, {
 	        key: 'consolidateSelection',
 	        value: function consolidateSelection(selection) {
 	
-	            // Xxxxxxx.
+	            // Take ALL effected tiles for this turn and places their keys into a
+	            // simple array.
 	
 	            var key = Object.keys(selection);
+	            console.log('key');
+	            console.log(key);
 	            var tiles = ['' + key];
 	
 	            for (var i = 0; i < selection[key].length; i += 1) {
@@ -9977,6 +10007,8 @@
 	                tiles.push(selection[key][i]);
 	            }
 	
+	            console.log('tiles');
+	            console.log(tiles);
 	            return tiles;
 	        }
 	    }]);
@@ -10007,6 +10039,7 @@
 	        this.Reversi = Reversi;
 	        this.Board = Reversi.Board;
 	        this.Game = Game;
+	        this.relevant = true;
 	    }
 	
 	    _createClass(PlayerOne, [{
@@ -10075,6 +10108,7 @@
 	
 	        this.Reversi = Reversi;
 	        this.Game = Game;
+	        this.relevant = true;
 	    }
 	
 	    _createClass(PlayerTwo, [{
@@ -10194,6 +10228,102 @@
 	
 	var $ = __webpack_require__(6);
 	
+	var Winner = (function () {
+	    function Winner(Reversi, Game) {
+	        _classCallCheck(this, Winner);
+	
+	        this.Reversi = Reversi;
+	        this.Game = Game;
+	        this.$replay = this.Reversi.$wrapper.find('> #replay');
+	    }
+	
+	    _createClass(Winner, [{
+	        key: 'congratulations',
+	        value: function congratulations() {
+	
+	            this.toggleUi('add');
+	            var winner = this.chooseWinner();
+	            this.alertWinner(winner);
+	        }
+	    }, {
+	        key: 'toggleUi',
+	        value: function toggleUi(action) {
+	
+	            action = action === 'add' ? 'attr' : 'removeAttr';
+	
+	            this.Reversi.$wrapper[action]('data-winner', 'none');
+	        }
+	    }, {
+	        key: 'chooseWinner',
+	        value: function chooseWinner() {
+	
+	            //
+	
+	            var tally = this.Reversi.Tally.examineBoard();
+	            return tally['green'] > tally['blue'] ? 'PlayerOne' : 'PlayerTwo';
+	        }
+	    }, {
+	        key: 'alertWinner',
+	        value: function alertWinner(winner) {
+	            var _this = this;
+	
+	            setTimeout(function () {
+	
+	                _this.addWinnerAttribute(winner);
+	                _this.activateReplayCta();
+	            }, 2000);
+	        }
+	    }, {
+	        key: 'activateReplayCta',
+	        value: function activateReplayCta() {
+	            var _this2 = this;
+	
+	            this.toggleReplayCta('add');
+	
+	            this.$replay.one('click', function () {
+	
+	                _this2.toggleReplayCta('remove');
+	                _this2.removeWinnerAttribute();
+	                _this2.Game.startGame();
+	            });
+	        }
+	    }, {
+	        key: 'addWinnerAttribute',
+	        value: function addWinnerAttribute(winner) {
+	
+	            this.Reversi.$wrapper.attr('data-winner', winner);
+	        }
+	    }, {
+	        key: 'removeWinnerAttribute',
+	        value: function removeWinnerAttribute() {
+	
+	            this.Reversi.$wrapper.removeAttr('data-winner');
+	        }
+	    }, {
+	        key: 'toggleReplayCta',
+	        value: function toggleReplayCta(action) {
+	
+	            this.$replay[action + 'Class']('replay--active');
+	        }
+	    }]);
+	
+	    return Winner;
+	})();
+	
+	module.exports = Winner;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var $ = __webpack_require__(6);
+	
 	var Animation = (function () {
 	    function Animation(Reversi) {
 	        _classCallCheck(this, Animation);
@@ -10203,11 +10333,11 @@
 	
 	    _createClass(Animation, [{
 	        key: 'flipTile',
-	        value: function flipTile($tile, from, to) {
+	        value: function flipTile($tile, color) {
 	
 	            $tile.removeClass('tile--flip').attr({
-	                'data-color-from': from,
-	                'data-color-to': to
+	                'data-color-from': $tile.attr('data-color-to'),
+	                'data-color-to': color
 	            });
 	
 	            setTimeout(function () {
@@ -10232,7 +10362,7 @@
 	
 	                    var $tile = $wrapper.find('> #' + key);
 	
-	                    this.flipTile($tile, 'white', 'gray');
+	                    this.flipTile($tile, 'gray');
 	                }
 	            } catch (err) {
 	                _didIteratorError = true;
@@ -10259,7 +10389,7 @@
 	
 	                var $tile = $tiles.eq(i);
 	
-	                this.flipTile($tile, 'gray', 'white');
+	                this.flipTile($tile, 'white');
 	            }
 	        }
 	    }]);
@@ -10270,7 +10400,7 @@
 	module.exports = Animation;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10294,24 +10424,24 @@
 	        key: 'update',
 	        value: function update() {
 	
-	            // get colors
-	            // set up each player
-	            // split digit
-	            // set digits
+	            // Update the players counter in the DOM to relate the current tile
+	            // tally for each player.
 	
-	            var colors = this.examineBoard();
-	            console.log('colors');
-	            console.log(colors);
-	
-	            this.setTally(colors);
+	            var tally = this.examineBoard();
+	            console.log('tally');
+	            console.log(tally);
+	            this.setTally(tally);
 	        }
 	    }, {
 	        key: 'examineBoard',
 	        value: function examineBoard() {
 	
+	            // Loop through the JS object version of the board tallying up only the
+	            // Green (player one) and Blue (player two) tiles.
+	
 	            var tiles = this.Reversi.Board.tiles;
 	            var keys = Object.keys(tiles);
-	            var colors = {};
+	            var tally = { green: 0, blue: 0 };
 	
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
@@ -10323,7 +10453,7 @@
 	
 	                    var color = tiles[key];
 	
-	                    if (color !== 'white') colors[color] = colors.hasOwnProperty(color) ? colors[color] += 1 : colors[color] = 1;
+	                    if (color !== 'white' && color !== 'gray') tally[color] += 1;
 	                }
 	            } catch (err) {
 	                _didIteratorError = true;
@@ -10340,13 +10470,15 @@
 	                }
 	            }
 	
-	            return colors;
+	            return tally;
 	        }
 	    }, {
 	        key: 'setTally',
-	        value: function setTally(colors) {
+	        value: function setTally(tally) {
 	
-	            var keys = Object.keys(colors);
+	            // Set each players counter to color tally value.
+	
+	            var keys = Object.keys(tally);
 	
 	            var _iteratorNormalCompletion2 = true;
 	            var _didIteratorError2 = false;
@@ -10357,7 +10489,7 @@
 	                    var key = _step2.value;
 	
 	                    var $tally = key === 'green' ? this.$playerOne : this.$playerTwo;
-	                    var color = colors[key];
+	                    var color = tally[key];
 	                    var digits = this.splitDigits(color);
 	
 	                    this.setDigits($tally, digits);
@@ -10381,6 +10513,11 @@
 	        key: 'splitDigits',
 	        value: function splitDigits(color) {
 	
+	            // The counter animation controls each of the two digit in number
+	            // independently. In that regard we split the current tile tally into
+	            // two numbers - if the number is only one digit then we append a zero
+	            // at the front.
+	
 	            color = ('' + color).length < 2 ? '0' + color : '' + color;
 	
 	            var digits = [];
@@ -10396,13 +10533,21 @@
 	        key: 'setDigits',
 	        value: function setDigits($tally, digits) {
 	
-	            console.log('convert these numbers...');
-	            console.log(digits);
+	            // Replicate the two split digits into the DOM by altering the data
+	            // attribute to animate them into place.
 	
 	            for (var i = 0; i < digits.length; i += 1) {
 	
 	                $tally.attr('data-digit-' + i, digits[i]);
 	            }
+	        }
+	    }, {
+	        key: 'resetTally',
+	        value: function resetTally() {
+	
+	            var tally = { green: 2, blue: 2 };
+	
+	            this.setTally(tally);
 	        }
 	    }]);
 	

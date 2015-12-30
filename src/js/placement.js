@@ -64,6 +64,7 @@ const Placement = class {
         this.Game[player].relevant = relevant;
         console.log(`${player}'s possibilities`);
         console.log(possibilities);
+        console.log(`relevant ${relevant}`);
 
         if (relevant) {
 
@@ -160,9 +161,9 @@ const Placement = class {
         for (let tile of tiles) {
 
             const $tile = $(`#${tile}`);
-            const from = $tile.attr('data-color-to');
-            const to = this.Reversi.Helper.playerColor;
-            this.Reversi.Animation.flipTile($tile, from, to);
+            const color = this.Reversi.Helper.playerColor;
+
+            this.Reversi.Animation.flipTile($tile, color);
 
         }
 
@@ -176,6 +177,8 @@ const Placement = class {
         // simple array.
 
         const key = Object.keys(selection);
+        console.log('key');
+        console.log(key);
         const tiles = [`${key}`];
 
         for (let i = 0; i < selection[key].length; i += 1) {
@@ -184,6 +187,8 @@ const Placement = class {
 
         }
 
+        console.log('tiles');
+        console.log(tiles);
         return tiles;
 
     }
