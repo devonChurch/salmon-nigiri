@@ -50,6 +50,18 @@
         [data-winner] & {
             transform: translate(-50px, -50%);
         }
+
+        .replay--active ~ & {
+            transform: translate(-50px, -110px);
+
+            @include media('>=medium') {
+                transform: translate(-50px, -120px);
+            }
+
+            @include media('>=large') {
+                transform: translate(-50px, -150px);
+            }
+        }
     }
 
     &--two {
