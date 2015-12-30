@@ -10,8 +10,6 @@
     pointer-events: none;
     position: absolute;
     top: 50%;
-    transition: opacity 0.5s ease-out,
-                transform 1s ease-out;
     width: $size--small;
     z-index: 10;
 
@@ -25,10 +23,19 @@
         width: $size--big;
     }
 
+    // The tally module has an annoying transition on load so we only activate
+    // transitions after the [data-turn] attribute has been injected via JS (the
+    // modules no load in the right place statically).
+
+    [data-turn] & {
+        transition: opacity 0.5s ease-out,
+                    transform 1s ease-out;
+    }
+
     &--one {
         color: $green--front;
         right: 50%;
-        transform: translate(-$board-edge--small + $tile--size--small, -$board-edge--small - $sprite--height--small - 20px);
+        transform: translate(-$board-edge--small + $tile--size--small, -$board-edge--small - $sprite--height--small - 30px);
 
         @include media('>=medium') {
             transform: translate(-$board-edge--medium + $tile--size--medium, -$board-edge--medium - $sprite--height--medium - 20px);
@@ -55,7 +62,7 @@
     &--two {
         color: $blue--front;
         left: 50%;
-        transform: translate($board-edge--small - $tile--size--small, -$board-edge--small - $sprite--height--small - 20px);
+        transform: translate($board-edge--small - $tile--size--small, -$board-edge--small - $sprite--height--small - 30px);
 
         @include media('>=medium') {
             transform: translate($board-edge--medium - $tile--size--medium, -$board-edge--medium - $sprite--height--medium - 20px);
@@ -203,16 +210,17 @@
         position: absolute;
         width: 200%;
         text-align: center;
-        transform: translateX(30px);
         transition: transform 0.5s ease-out;
         top: 120%;
 
         @include media('>=medium') {
             font-size: 18px;
+            transform: translateX(25px);
         }
 
         @include media('>=large') {
             font-size: 20px;
+            transform: translateX(30px);
         }
 
         @include media('>=xlarge') {

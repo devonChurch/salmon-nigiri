@@ -19,10 +19,10 @@ const Tile = class {
         // board has a certain color arrangement when a new game starts so we
         // accomodate that during the looping process.
 
-        const color = this.tileColor(i, j);
+        // const color = this.tileColor(i, j);
         const svg = this.generateSvg(i, j);
         const $tile = this.injectTile(svg);
-        this.activateTile(i, j, color, $tile);
+        // this.activateTile(i, j, color, $tile);
 
     }
 
@@ -84,37 +84,36 @@ const Tile = class {
 
     }
 
-    activateTile(i, j, color, $tile) {
+    activateTile(i, color, $tile) {
 
         // Flip each tile independently once  it has been added to the DOM. We
         // use a delay to create a sweeping motion going diagonally from the
         // Left, Top corner to the Bottom, Right corner of the board.
 
-        const delay = 1000 / this.Board.tally * 2 * (i + j + 1);
+        const delay = 1000 / this.Board.tally * 2 * (i + 1);
 
         setTimeout(() => {
 
             this.Reversi.Animation.flipTile($tile, 'white', color);
-            this.activationCallback(i, j);
+            this.activationCallback(i);
 
         }, delay);
 
     }
 
-    activationCallback(i, j) {
+    activationCallback(i) {
 
         // To make sure we do not start the game before the “flip” intro
         // animations are finished we run  quick check upon each animation call
         // to see if we are targeting the last tile on the board.
 
-        const tally = (i + 1) * (j + 1);
         const total = Math.pow(this.Board.tally, 2);
 
-        if (tally === total) {
+        if (i + 1 === total) {
 
             setTimeout(() => {
 
-                this.Reversi.Game.startGame();
+                this.Reversi.Game.startTurn();
 
             }, 1000);
 
@@ -123,16 +122,14 @@ const Tile = class {
     }
 
 
-    tileColor(i, j) {
+    tileColor(i) {
 
         // Checks what tile is currently being referenced and decides what color
         // it needs to be in order to create the starting tile configuration.
 
-        const tally = (i * this.Board.tally) + j;
+        // return i === 27 || i === 36 ? 'green' : i === 28 || i === 35 ? 'blue' : 'white';
 
-        // return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
-
-        return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
+        return i === 0 ? 'green' : i === 1 || i === 2 ? 'blue' : 'white';
 
     }
 

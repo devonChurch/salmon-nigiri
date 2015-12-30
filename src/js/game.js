@@ -15,6 +15,11 @@ const Game = class {
         this.PlayerTwo = new PlayerTwo(Reversi, this);
         this.Winner = new Winner(Reversi, this);
 
+        //
+        //
+        //
+        this.startGame();
+
     }
 
     randomiseTurn() {
@@ -25,7 +30,11 @@ const Game = class {
 
     startGame() {
 
-        this.startTurn();
+        console.log('Starting game');
+
+        this.setCurrentPlayer('none');
+        this.Reversi.Board.resetBoard();
+        // this.startTurn();
 
     }
 

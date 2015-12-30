@@ -39,6 +39,23 @@ const Board = class {
 
     }
 
+    resetBoard() {
+
+        console.log('reset board');
+
+        const $tiles = this.$tiles;
+
+        for (let i = 0; i < $tiles.length; i += 1) {
+
+            const color = this.Tile.tileColor(i);
+            const $tile = $tiles.eq(i);
+
+            this.Tile.activateTile(i, color, $tile);
+
+        }
+
+    }
+
     replicateBoard() {
 
         // Loop through the Dom and create an object based on the current status

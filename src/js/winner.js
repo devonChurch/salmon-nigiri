@@ -38,9 +38,33 @@ const Winner = class {
 
         setTimeout(() => {
 
-            this.Reversi.$wrapper.attr('data-winner', winner);
+            this.addWinnerAttribute(winner);
+            this.activateReplayCta();
 
         }, 2000);
+
+    }
+
+    activateReplayCta() {
+
+        this.Reversi.$wrapper.one('click', () => {
+
+            this.removeWinnerAttribute();
+            this.Game.startGame();
+
+        });
+
+    }
+
+    addWinnerAttribute(winner) {
+
+        this.Reversi.$wrapper.attr('data-winner', winner);
+
+    }
+
+    removeWinnerAttribute() {
+
+        this.Reversi.$wrapper.removeAttr('data-winner');
 
     }
 
