@@ -6,11 +6,7 @@ $board--size--big: $tile--size--big * 8;
     display: flex;
     flex-wrap: wrap;
     height: $board--size--small;
-    left: 50%;
     margin: auto;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
     transition: opacity 1s ease-out;
     width: $board--size--small;
 

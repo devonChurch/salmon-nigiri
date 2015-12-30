@@ -1,4 +1,13 @@
 .reversi {
-    min-height: 100vh;
+    margin: 130px auto 20px;
+    position: relative;
     transition: background 0.5s ease-out;
+
+    @include media('>=medium') {
+        margin-top: 200px;
+    }
+
+    @include media('>=large') {
+        margin-top: 60px;
+    }
 }
