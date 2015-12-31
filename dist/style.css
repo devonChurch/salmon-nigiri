@@ -6,11 +6,17 @@
 
 body {
   margin: 0;
-  overflow: hidden; }
+  overflow-x: hidden; }
 
 .reversi {
-  min-height: 100vh;
-  transition: background 0.5s ease-out; }
+  margin: 130px auto 20px;
+  position: relative; }
+  @media (min-width: 768px) {
+    .reversi {
+      margin-top: 200px; } }
+  @media (min-width: 1024px) {
+    .reversi {
+      margin-top: 60px; } }
 
 .board {
   display: -webkit-flex;
@@ -20,13 +26,8 @@ body {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   height: 440px;
-  left: 50%;
   margin: auto;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  transition: opacity 1s ease-out;
+  transition: opacity 0.5s ease-out;
   width: 440px; }
   @media (min-width: 768px) {
     .board {
@@ -195,18 +196,37 @@ body {
                 transform: translate(-276px, -517px); } }
     @media (min-width: 1024px) {
       .tally--one {
-        -webkit-transform: translate(-410px, -50%);
-                transform: translate(-410px, -50%); } }
+        -webkit-transform: translate(-410px, -80px);
+                transform: translate(-410px, -80px); } }
     @media (min-width: 1200px) {
       .tally--one {
-        -webkit-transform: translate(-450px, -50%);
-                transform: translate(-450px, -50%); } }
+        -webkit-transform: translate(-450px, -80px);
+                transform: translate(-450px, -80px); } }
     [data-turn="PlayerOne"] .tally--one,
     [data-winner="PlayerOne"] .tally--one {
       opacity: 1; }
     [data-winner] .tally--one {
-      -webkit-transform: translate(-50px, -50%);
-              transform: translate(-50px, -50%); }
+      -webkit-transform: translate(-50px, -60px);
+              transform: translate(-50px, -60px); }
+      @media (min-width: 768px) {
+        [data-winner] .tally--one {
+          -webkit-transform: translate(-60px, -90px);
+                  transform: translate(-60px, -90px); } }
+      @media (min-width: 1024px) {
+        [data-winner] .tally--one {
+          -webkit-transform: translate(-70px, -110px);
+                  transform: translate(-70px, -110px); } }
+    .replay--active ~ .tally--one {
+      -webkit-transform: translate(-50px, -110px);
+              transform: translate(-50px, -110px); }
+      @media (min-width: 768px) {
+        .replay--active ~ .tally--one {
+          -webkit-transform: translate(-60px, -120px);
+                  transform: translate(-60px, -120px); } }
+      @media (min-width: 1024px) {
+        .replay--active ~ .tally--one {
+          -webkit-transform: translate(-70px, -150px);
+                  transform: translate(-70px, -150px); } }
   .tally--two {
     color: #3fa9f5;
     left: 50%;
@@ -218,18 +238,37 @@ body {
                 transform: translate(276px, -517px); } }
     @media (min-width: 1024px) {
       .tally--two {
-        -webkit-transform: translate(410px, -50%);
-                transform: translate(410px, -50%); } }
+        -webkit-transform: translate(410px, -80px);
+                transform: translate(410px, -80px); } }
     @media (min-width: 1200px) {
       .tally--two {
-        -webkit-transform: translate(450px, -50%);
-                transform: translate(450px, -50%); } }
+        -webkit-transform: translate(450px, -80px);
+                transform: translate(450px, -80px); } }
     [data-turn="PlayerTwo"] .tally--two,
     [data-winner="PlayerTwo"] .tally--two {
       opacity: 1; }
     [data-winner] .tally--two {
-      -webkit-transform: translate(50px, -50%);
-              transform: translate(50px, -50%); }
+      -webkit-transform: translate(50px, -60px);
+              transform: translate(50px, -60px); }
+      @media (min-width: 768px) {
+        [data-winner] .tally--two {
+          -webkit-transform: translate(60px, -90px);
+                  transform: translate(60px, -90px); } }
+      @media (min-width: 1024px) {
+        [data-winner] .tally--two {
+          -webkit-transform: translate(70px, -110px);
+                  transform: translate(70px, -110px); } }
+    .replay--active ~ .tally--two {
+      -webkit-transform: translate(50px, -110px);
+              transform: translate(50px, -110px); }
+      @media (min-width: 768px) {
+        .replay--active ~ .tally--two {
+          -webkit-transform: translate(60px, -120px);
+                  transform: translate(60px, -120px); } }
+      @media (min-width: 1024px) {
+        .replay--active ~ .tally--two {
+          -webkit-transform: translate(70px, -150px);
+                  transform: translate(70px, -150px); } }
   .tally__ball {
     border: 2px solid;
     border-radius: 50%;
@@ -239,9 +278,9 @@ body {
     top: 0;
     -webkit-transform: scale(0.75);
             transform: scale(0.75);
-    transition: -webkit-transform 0.5s ease-out;
-    transition: transform 0.5s ease-out;
-    transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
+    transition: -webkit-transform 1s ease-out;
+    transition: transform 1s ease-out;
+    transition: transform 1s ease-out, -webkit-transform 1s ease-out;
     width: 100%; }
     .tally__ball:before {
       border: 1px solid;
@@ -280,9 +319,9 @@ body {
     height: 100%;
     position: absolute;
     top: 0;
-    transition: -webkit-transform 0.5s ease-out;
-    transition: transform 0.5s ease-out;
-    transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
+    transition: -webkit-transform 1s ease-out;
+    transition: transform 1s ease-out;
+    transition: transform 1s ease-out, -webkit-transform 1s ease-out;
     width: 50%; }
     .tally__number--0 {
       left: 0; }
@@ -438,7 +477,7 @@ body {
   font-weight: 900;
   left: 50%;
   margin-left: 9999px;
-  margin-top: 140px;
+  margin-top: 60px;
   opacity: 0;
   padding: 6px 20px;
   position: absolute;
@@ -453,12 +492,12 @@ body {
   @media (min-width: 768px) {
     .replay {
       font-size: 16px;
-      margin-top: 180px;
+      margin-top: 70px;
       padding: 8px 25px; } }
   @media (min-width: 1024px) {
     .replay {
       font-size: 18px;
-      margin-top: 200px;
+      margin-top: 100px;
       padding: 10px 30px; } }
   .replay:hover, .replay:focus {
     background: #4d4d4d; }
