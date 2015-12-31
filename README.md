@@ -2,6 +2,10 @@
 
 A game of [Reversi](https://en.wikipedia.org/wiki/Reversi) against a CPU controlled component.
 
+## Demo
+
+[Click here](http://codepen.io/DevonChurch/full/XXNqWE/)
+
 ## Installation
 
 - Clone this repository
