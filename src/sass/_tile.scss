@@ -1,5 +1,3 @@
-$tile--flip: 0.5s;
-
 @keyframes tile--jump {
 
     0%,
@@ -34,7 +32,7 @@ $tile--flip: 0.5s;
 
     &--flip &__sprite {
         transform: translateX($tile--size--small * ($tile--frames - 1) * -1);
-        transition-duration: $tile--flip;
+        transition-duration: $speed--flip;
 
         @include media('>=medium') {
             transform: translateX($tile--size--medium * ($tile--frames - 1) * -1);
@@ -85,7 +83,7 @@ $tile--flip: 0.5s;
         transition: transform 0.25s ease-out;
 
         .tile--flip & {
-            animation: tile--jump $tile--flip ease-in-out;
+            animation: tile--jump $speed--flip ease-in-out;
         }
     }
 

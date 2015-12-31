@@ -6,7 +6,7 @@ const PlayerTwo = class {
 
         this.Reversi = Reversi;
         this.Game = Game;
-        this.relevant = true;
+        this.relevant = true; // set via this.Reversi.Game.Placement.utilisePossibilities();
 
     }
 
@@ -18,6 +18,10 @@ const PlayerTwo = class {
 
     choosePossibility(possibilities) {
 
+        // We need to decide which tile the computer controlled opponent should
+        // pick. We are using a simple algorithm to find which tiles yield the
+        // highest “flip” total.
+
         possibilities = this.sortPossibilities(possibilities);
         possibilities = this.findPrioritySet(possibilities);
         const selection = this.pickPriorityTile(possibilities);
@@ -27,6 +31,9 @@ const PlayerTwo = class {
     }
 
     sortPossibilities(possibilities) {
+
+        // Sort each tile possibility into sets that relate to how many tiles on
+        // the board they will effect.
 
         const keys = Object.keys(possibilities);
         const priorities = {};
@@ -46,6 +53,8 @@ const PlayerTwo = class {
 
     findPrioritySet(possibilities) {
 
+        // Find the tiles set in the array that yields the highest “flip” total.
+
         const keys = Object.keys(possibilities);
         let max = 0;
 
@@ -61,6 +70,8 @@ const PlayerTwo = class {
     }
 
     pickPriorityTile(possibilities) {
+
+        // From the chosen set randomly pick one of the tile possibilities.
 
         const max = possibilities.length - 1;
 

@@ -7,7 +7,6 @@ const Board = class {
 
         this.Reversi = Reversi;
         this.Tile = new Tile(Reversi, this);
-
         this.$wrapper = this.Reversi.$wrapper.find('#board');
         this.tally = 8;
         this.generateTiles();
@@ -41,7 +40,8 @@ const Board = class {
 
     resetBoard() {
 
-        console.log('reset board');
+        // Turns the current arrangement of the tiles on the board back into the
+        // original 2x2 setup to start a game.
 
         const $tiles = this.$tiles;
 

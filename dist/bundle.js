@@ -9389,7 +9389,6 @@
 	
 	        this.Reversi = Reversi;
 	        this.Tile = new Tile(Reversi, this);
-	
 	        this.$wrapper = this.Reversi.$wrapper.find('#board');
 	        this.tally = 8;
 	        this.generateTiles();
@@ -9421,7 +9420,8 @@
 	        key: 'resetBoard',
 	        value: function resetBoard() {
 	
-	            console.log('reset board');
+	            // Turns the current arrangement of the tiles on the board back into the
+	            // original 2x2 setup to start a game.
 	
 	            var $tiles = this.$tiles;
 	
@@ -9584,8 +9584,6 @@
 	            var tally = i * this.Board.tally + j;
 	
 	            return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
-	
-	            // return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
 	        }
 	    }]);
 	
@@ -9683,7 +9681,7 @@
 	        _classCallCheck(this, Game);
 	
 	        this.Reversi = Reversi;
-	        this.i = this.randomiseTurn();
+	        this.i = null; // set via this.randomiseTurn();
 	        this.Placement = new Placement(Reversi, this);
 	        this.PlayerOne = new PlayerOne(Reversi, this);
 	        this.PlayerTwo = new PlayerTwo(Reversi, this);
@@ -9695,12 +9693,17 @@
 	        key: 'randomiseTurn',
 	        value: function randomiseTurn() {
 	
-	            return this.Reversi.Helper.randomise({ max: 1 });
+	            // Randomly picks what player will start the game.
+	
+	            this.i = this.Reversi.Helper.randomise({ max: 1 });
 	        }
 	    }, {
 	        key: 'startGame',
 	        value: function startGame() {
 	
+	            // Sets up the conditions for a new game (on load or on replay).
+	
+	            this.randomiseTurn();
 	            this.setCurrentPlayer('none');
 	            this.Reversi.Board.resetBoard();
 	            this.Reversi.Tally.resetTally();
@@ -9708,6 +9711,8 @@
 	    }, {
 	        key: 'startTurn',
 	        value: function startTurn() {
+	
+	            // Keeps the game conditions in sync for the start of each players turn.
 	
 	            this.Reversi.Board.replicateBoard();
 	            this.Reversi.Tally.update();
@@ -9717,6 +9722,11 @@
 	        key: 'endTurn',
 	        value: function endTurn() {
 	            var _this = this;
+	
+	            // Ends the current layers turn. The turn incremented (i) is added to so
+	            // that the this.Revers.Helper.player getter can determine who’s turn it
+	            // is next. A delay is given to this functions execution to emulate a
+	            // more natural game pace.
 	
 	            setTimeout(function () {
 	
@@ -9728,6 +9738,9 @@
 	        key: 'endGame',
 	        value: function endGame() {
 	
+	            // Ends the current game and informs the user of the winner along with
+	            // an option to play again.
+	
 	            this.Reversi.Board.replicateBoard();
 	            this.Reversi.Tally.update();
 	            this.setCurrentPlayer('none');
@@ -9737,6 +9750,12 @@
 	        key: 'noPossibilities',
 	        value: function noPossibilities() {
 	
+	            // Decides the corse of action when a current player has no options to
+	            // play this turn. In this situation we move onto the next player and if
+	            // they also have no possible tiles moves to make then the game is
+	            // officially over either by stalemate or the board is full with
+	            // coloured tiles.
+	
 	            var action = !this.PlayerOne.relevant && !this.PlayerTwo.relevant ? 'endGame' : 'endTurn';
 	
 	            this[action]();
@@ -9744,6 +9763,9 @@
 	    }, {
 	        key: 'setCurrentPlayer',
 	        value: function setCurrentPlayer(player) {
+	
+	            // Updates the DOM with the current player status. This changes the UI’s
+	            // emphasis of each tally element.
 	
 	            this.Reversi.$wrapper.attr('data-turn', player);
 	        }
@@ -9841,15 +9863,14 @@
 	        value: function utilisePossibilities(possibilities) {
 	
 	            // Ping either player one or two with the possible tile references to be
-	            // utilised in their player specific scenarios.
+	            // utilised in their player specific scenarios. If there are no
+	            // possibilities for this turn then we must let the game know in order
+	            // to determine if the game has ended or not.
 	
 	            var player = this.Reversi.Helper.player;
 	            var relevant = Object.keys(possibilities).length > 0;
 	
 	            this.Game[player].relevant = relevant;
-	            console.log(player + '\'s possibilities');
-	            console.log(possibilities);
-	            console.log('relevant ' + relevant);
 	
 	            if (relevant) {
 	
@@ -9998,8 +10019,6 @@
 	            // simple array.
 	
 	            var key = Object.keys(selection);
-	            console.log('key');
-	            console.log(key);
 	            var tiles = ['' + key];
 	
 	            for (var i = 0; i < selection[key].length; i += 1) {
@@ -10007,8 +10026,6 @@
 	                tiles.push(selection[key][i]);
 	            }
 	
-	            console.log('tiles');
-	            console.log(tiles);
 	            return tiles;
 	        }
 	    }]);
@@ -10039,12 +10056,15 @@
 	        this.Reversi = Reversi;
 	        this.Board = Reversi.Board;
 	        this.Game = Game;
-	        this.relevant = true;
+	        this.relevant = true; // set via this.Reversi.Game.Placement.utilisePossibilities();
 	    }
 	
 	    _createClass(PlayerOne, [{
 	        key: 'startTurn',
 	        value: function startTurn(possibilities) {
+	
+	            // Show the possible tile options for the human player and add event
+	            // listeners to these applicable options.
 	
 	            this.Reversi.Animation.illustratePossibilities(possibilities);
 	            this.activateListeners(possibilities);
@@ -10052,6 +10072,9 @@
 	    }, {
 	        key: 'endTurn',
 	        value: function endTurn() {
+	
+	            // Reset the gray option tiles back to white and remove any unused tile
+	            // event listeners.
 	
 	            this.Reversi.Animation.resetPossibilities();
 	            this.deactivateListeners();
@@ -10061,13 +10084,16 @@
 	        value: function activateListeners(possibilities) {
 	            var _this = this;
 	
-	            this.Board.$wrapper.on('click.playerOne', 'button[data-color-to="gray"]', function (e) {
+	            this.Board.$wrapper.one('click.playerOne', 'button[data-color-to="gray"]', function (e) {
 	                return _this.tileClick(e, possibilities);
 	            });
 	        }
 	    }, {
 	        key: 'tileClick',
 	        value: function tileClick(e, possibilities) {
+	
+	            // Get the properties for the selected tile in this turn so that the
+	            // appropriate placements can be made to the board.
 	
 	            var key = $(e.currentTarget).attr('id');
 	            var selection = _defineProperty({}, key, possibilities[key]);
@@ -10108,7 +10134,7 @@
 	
 	        this.Reversi = Reversi;
 	        this.Game = Game;
-	        this.relevant = true;
+	        this.relevant = true; // set via this.Reversi.Game.Placement.utilisePossibilities();
 	    }
 	
 	    _createClass(PlayerTwo, [{
@@ -10121,6 +10147,10 @@
 	        key: 'choosePossibility',
 	        value: function choosePossibility(possibilities) {
 	
+	            // We need to decide which tile the computer controlled opponent should
+	            // pick. We are using a simple algorithm to find which tiles yield the
+	            // highest “flip” total.
+	
 	            possibilities = this.sortPossibilities(possibilities);
 	            possibilities = this.findPrioritySet(possibilities);
 	            var selection = this.pickPriorityTile(possibilities);
@@ -10130,6 +10160,9 @@
 	    }, {
 	        key: 'sortPossibilities',
 	        value: function sortPossibilities(possibilities) {
+	
+	            // Sort each tile possibility into sets that relate to how many tiles on
+	            // the board they will effect.
 	
 	            var keys = Object.keys(possibilities);
 	            var priorities = {};
@@ -10170,6 +10203,8 @@
 	        key: 'findPrioritySet',
 	        value: function findPrioritySet(possibilities) {
 	
+	            // Find the tiles set in the array that yields the highest “flip” total.
+	
 	            var keys = Object.keys(possibilities);
 	            var max = 0;
 	
@@ -10204,6 +10239,8 @@
 	    }, {
 	        key: 'pickPriorityTile',
 	        value: function pickPriorityTile(possibilities) {
+	
+	            // From the chosen set randomly pick one of the tile possibilities.
 	
 	            var max = possibilities.length - 1;
 	
@@ -10241,23 +10278,18 @@
 	        key: 'congratulations',
 	        value: function congratulations() {
 	
-	            this.toggleUi('add');
+	            // Sets the events in motion to determine a winner of the current game.
+	
+	            this.addWinnerAttribute('none');
 	            var winner = this.chooseWinner();
 	            this.alertWinner(winner);
-	        }
-	    }, {
-	        key: 'toggleUi',
-	        value: function toggleUi(action) {
-	
-	            action = action === 'add' ? 'attr' : 'removeAttr';
-	
-	            this.Reversi.$wrapper[action]('data-winner', 'none');
 	        }
 	    }, {
 	        key: 'chooseWinner',
 	        value: function chooseWinner() {
 	
-	            //
+	            // Looks the tile tally to find which player has the most of their
+	            // respective coloured tiles on the board.
 	
 	            var tally = this.Reversi.Tally.examineBoard();
 	            return tally['green'] > tally['blue'] ? 'PlayerOne' : 'PlayerTwo';
@@ -10266,6 +10298,10 @@
 	        key: 'alertWinner',
 	        value: function alertWinner(winner) {
 	            var _this = this;
+	
+	            // Notifies the outcome of the game and prompts the replay button to be
+	            // brought into view. The delay lets the CSS animations play out along
+	            // with a pause to maintain consistent pacing.
 	
 	            setTimeout(function () {
 	
@@ -10278,14 +10314,21 @@
 	        value: function activateReplayCta() {
 	            var _this2 = this;
 	
-	            this.toggleReplayCta('add');
+	            // Adds in the one time click event that will prompt the game to restart
+	            // into a fresh state. The delay give the user time to absorb the winner
+	            // of the current game before being promoted to replay.
 	
-	            this.$replay.one('click', function () {
+	            setTimeout(function () {
 	
-	                _this2.toggleReplayCta('remove');
-	                _this2.removeWinnerAttribute();
-	                _this2.Game.startGame();
-	            });
+	                _this2.toggleReplayCta('add');
+	
+	                _this2.$replay.one('click', function () {
+	
+	                    _this2.toggleReplayCta('remove');
+	                    _this2.removeWinnerAttribute();
+	                    _this2.Game.startGame();
+	                });
+	            }, 1000);
 	        }
 	    }, {
 	        key: 'addWinnerAttribute',
@@ -10335,10 +10378,16 @@
 	        key: 'flipTile',
 	        value: function flipTile($tile, color) {
 	
+	            // Activates the flip animation of a tile setting its current color to
+	            // the bottom and replacing it with the new supplied color parameter.
+	
 	            $tile.removeClass('tile--flip').attr({
 	                'data-color-from': $tile.attr('data-color-to'),
 	                'data-color-to': color
 	            });
+	
+	            // We add a small delay so the DOM has time to update before we add the
+	            // class back onto the targeted element.
 	
 	            setTimeout(function () {
 	
@@ -10348,6 +10397,9 @@
 	    }, {
 	        key: 'illustratePossibilities',
 	        value: function illustratePossibilities(possibilities) {
+	
+	            // Set all current possible tiles (tiles that will yield a result) for
+	            // the current turn from white to gray.
 	
 	            var keys = Object.keys(possibilities);
 	            var $wrapper = this.Reversi.Board.$wrapper;
@@ -10382,6 +10434,8 @@
 	    }, {
 	        key: 'resetPossibilities',
 	        value: function resetPossibilities() {
+	
+	            // Turn all gray “helper” tiles back to their generic while states.
 	
 	            var $tiles = this.Reversi.Board.$wrapper.find('> .tile[data-color-to="gray"]');
 	
@@ -10418,9 +10472,59 @@
 	        this.Reversi = Reversi;
 	        this.$playerOne = Reversi.$wrapper.find('> .tally--one');
 	        this.$playerTwo = Reversi.$wrapper.find('> .tally--two');
+	        this.buildTally();
 	    }
 	
 	    _createClass(Tally, [{
+	        key: 'buildTally',
+	        value: function buildTally() {
+	
+	            // Builds the four sets of digit columns numbers from 0 - 9 and their
+	            // shells for the tally instances present in the DOM.
+	
+	            var html = this.generateShell();
+	
+	            this.$playerOne.prepend(html);
+	            this.$playerTwo.prepend(html);
+	        }
+	    }, {
+	        key: 'generateShell',
+	        value: function generateShell() {
+	
+	            return '\n            <div class="tally__ball">\n                <div class="tally__overflow">\n                    ' + this.generateNumbers() + '\n                </div>\n            </div>\n        ';
+	        }
+	    }, {
+	        key: 'generateNumbers',
+	        value: function generateNumbers() {
+	
+	            // The two number columns present in each tally element.
+	
+	            var digits = this.generateDigits();
+	            var html = '';
+	
+	            for (var i = 0; i < 2; i += 1) {
+	
+	                html += '<div class="tally__number tally__number--' + i + '">' + digits + '</div>';
+	            }
+	
+	            return html;
+	        }
+	    }, {
+	        key: 'generateDigits',
+	        value: function generateDigits() {
+	
+	            // The ten digits 0 - 9 that reside in each number column.
+	
+	            var html = '';
+	
+	            for (var i = 0; i < 10; i += 1) {
+	
+	                html += '<span class="tally__digit">' + i + '</span>';
+	            }
+	
+	            return html;
+	        }
+	    }, {
 	        key: 'update',
 	        value: function update() {
 	
@@ -10428,8 +10532,7 @@
 	            // tally for each player.
 	
 	            var tally = this.examineBoard();
-	            console.log('tally');
-	            console.log(tally);
+	
 	            this.setTally(tally);
 	        }
 	    }, {
@@ -10544,6 +10647,9 @@
 	    }, {
 	        key: 'resetTally',
 	        value: function resetTally() {
+	
+	            // At the start of each game reset the tally to reference the 2x2
+	            // starting color grid in the centre of the board.
 	
 	            var tally = { green: 2, blue: 2 };
 	

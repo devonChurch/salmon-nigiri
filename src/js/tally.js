@@ -7,6 +7,64 @@ const Tally = class {
         this.Reversi = Reversi;
         this.$playerOne = Reversi.$wrapper.find('> .tally--one');
         this.$playerTwo = Reversi.$wrapper.find('> .tally--two');
+        this.buildTally();
+
+    }
+
+    buildTally() {
+
+        // Builds the four sets of digit columns numbers from 0 - 9 and their
+        // shells for the tally instances present in the DOM.
+
+        const html = this.generateShell();
+
+        this.$playerOne.prepend(html);
+        this.$playerTwo.prepend(html);
+
+    }
+
+    generateShell() {
+
+        return `
+            <div class="tally__ball">
+                <div class="tally__overflow">
+                    ${this.generateNumbers()}
+                </div>
+            </div>
+        `;
+
+    }
+
+    generateNumbers() {
+
+        // The two number columns present in each tally element.
+
+        const digits = this.generateDigits();
+        let html = '';
+
+        for (let i = 0; i < 2; i += 1) {
+
+            html += `<div class="tally__number tally__number--${i}">${digits}</div>`;
+
+        }
+
+        return html;
+
+    }
+
+    generateDigits() {
+
+        // The ten digits 0 - 9 that reside in each number column.
+
+        let html = '';
+
+        for (let i = 0; i < 10; i += 1) {
+
+            html += `<span class="tally__digit">${i}</span>`;
+
+        }
+
+        return html;
 
     }
 
@@ -16,8 +74,7 @@ const Tally = class {
         // tally for each player.
 
         const tally = this.examineBoard();
-        console.log('tally');
-        console.log(tally);
+
         this.setTally(tally);
 
     }
@@ -95,6 +152,9 @@ const Tally = class {
     }
 
     resetTally() {
+
+        // At the start of each game reset the tally to reference the 2x2
+        // starting color grid in the centre of the board.
 
         const tally = {green: 2, blue: 2};
 

@@ -12,7 +12,7 @@
     left: 50%;
     margin: {
         left: 9999px;
-        top: 140px;
+        top: 60px;
     }
     opacity: 0;
     padding: 6px 20px;
@@ -29,13 +29,13 @@
 
     @include media('>=medium') {
         font-size: 16px;
-        margin-top: 180px;
+        margin-top: 70px;
         padding: 8px 25px;
     }
 
     @include media('>=large') {
         font-size: 18px;
-        margin-top: 200px;
+        margin-top: 100px;
         padding: 10px 30px;
     }
 

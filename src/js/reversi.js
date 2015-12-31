@@ -16,7 +16,6 @@ const Reversi = class {
         this.Game = new Game(this);
         this.Animation = new Animation(this);
 
-
     }
 
 };
