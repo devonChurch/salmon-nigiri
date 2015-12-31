@@ -9583,9 +9583,7 @@
 	
 	            var tally = i * this.Board.tally + j;
 	
-	            // return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
-	
-	            return tally === 0 ? 'green' : tally === 1 || tally === 2 ? 'blue' : 'white';
+	            return tally === 27 || tally === 36 ? 'green' : tally === 28 || tally === 35 ? 'blue' : 'white';
 	        }
 	    }]);
 	
