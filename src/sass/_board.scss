@@ -1,13 +1,9 @@
-$board--size--small: $tile--size--small * 8;
-$board--size--medium: $tile--size--medium * 8;
-$board--size--big: $tile--size--big * 8;
-
 .board {
     display: flex;
     flex-wrap: wrap;
     height: $board--size--small;
     margin: auto;
-    transition: opacity 1s ease-out;
+    transition: opacity $speed--fade ease-out;
     width: $board--size--small;
 
     @include media('>=medium') {

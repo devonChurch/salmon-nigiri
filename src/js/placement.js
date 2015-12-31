@@ -56,15 +56,14 @@ const Placement = class {
     utilisePossibilities(possibilities) {
 
         // Ping either player one or two with the possible tile references to be
-        // utilised in their player specific scenarios.
+        // utilised in their player specific scenarios. If there are no
+        // possibilities for this turn then we must let the game know in order
+        // to determine if the game has ended or not.
 
         const player = this.Reversi.Helper.player;
         const relevant = Object.keys(possibilities).length > 0;
 
         this.Game[player].relevant = relevant;
-        console.log(`${player}'s possibilities`);
-        console.log(possibilities);
-        console.log(`relevant ${relevant}`);
 
         if (relevant) {
 
@@ -76,7 +75,6 @@ const Placement = class {
             this.Game.noPossibilities();
 
         }
-
 
     }
 
@@ -177,8 +175,6 @@ const Placement = class {
         // simple array.
 
         const key = Object.keys(selection);
-        console.log('key');
-        console.log(key);
         const tiles = [`${key}`];
 
         for (let i = 0; i < selection[key].length; i += 1) {
@@ -187,8 +183,6 @@ const Placement = class {
 
         }
 
-        console.log('tiles');
-        console.log(tiles);
         return tiles;
 
     }

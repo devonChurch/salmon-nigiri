@@ -13,6 +13,9 @@ const Tally = class {
 
     buildTally() {
 
+        // Builds the four sets of digit columns numbers from 0 - 9 and their
+        // shells for the tally instances present in the DOM.
+
         const html = this.generateShell();
 
         this.$playerOne.prepend(html);
@@ -34,6 +37,8 @@ const Tally = class {
 
     generateNumbers() {
 
+        // The two number columns present in each tally element.
+
         const digits = this.generateDigits();
         let html = '';
 
@@ -48,6 +53,8 @@ const Tally = class {
     }
 
     generateDigits() {
+
+        // The ten digits 0 - 9 that reside in each number column.
 
         let html = '';
 
@@ -67,8 +74,7 @@ const Tally = class {
         // tally for each player.
 
         const tally = this.examineBoard();
-        console.log('tally');
-        console.log(tally);
+
         this.setTally(tally);
 
     }
@@ -146,6 +152,9 @@ const Tally = class {
     }
 
     resetTally() {
+
+        // At the start of each game reset the tally to reference the 2x2
+        // starting color grid in the centre of the board.
 
         const tally = {green: 2, blue: 2};
 

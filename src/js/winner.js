@@ -12,23 +12,18 @@ const Winner = class {
 
     congratulations() {
 
-        this.toggleUi('add');
+        // Sets the events in motion to determine a winner of the current game.
+
+        this.addWinnerAttribute('none');
         const winner = this.chooseWinner();
         this.alertWinner(winner);
 
     }
 
-    toggleUi(action) {
-
-        action = action === 'add' ? 'attr' : 'removeAttr';
-
-        this.Reversi.$wrapper[action]('data-winner', 'none');
-
-    }
-
     chooseWinner() {
 
-        //
+        // Looks the tile tally to find which player has the most of their
+        // respective coloured tiles on the board.
 
         const tally = this.Reversi.Tally.examineBoard();
         return tally['green'] > tally['blue'] ? 'PlayerOne' : 'PlayerTwo';
@@ -37,8 +32,11 @@ const Winner = class {
 
     alertWinner(winner) {
 
-        setTimeout(() => {
+        // Notifies the outcome of the game and prompts the replay button to be
+        // brought into view. The delay lets the CSS animations play out along
+        // with a pause to maintain consistent pacing.
 
+        setTimeout(() => {
 
             this.addWinnerAttribute(winner);
             this.activateReplayCta();
@@ -48,6 +46,10 @@ const Winner = class {
     }
 
     activateReplayCta() {
+
+        // Adds in the one time click event that will prompt the game to restart
+        // into a fresh state. The delay give the user time to absorb the winner
+        // of the current game before being promoted to replay.
 
         setTimeout(() => {
 

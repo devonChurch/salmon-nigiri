@@ -1,16 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:900,300);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:700);
 
-// $palette: (
-//     blueDark: #178bbf,
-//     blueMedium: #14b5ea,
-//     blueLight: #68d8fd
-// );
-//
-// @function palette($color) {
-//     @return map-get($palette, $color);
-// }
-
 $white--front: #f2f2f2;
 $white--side: #cccccc;
 $white--drop: #999999;
@@ -26,23 +16,31 @@ $blue--front: #3fa9f5;
 $blue--side: #276991;
 $blue--light: lighten($blue--front, 35%);
 
-$speeds: (
-    base: 0.25s
-);
-
-@function speed($speed: base) {
-    @return map-get($speeds, $speed);
-}
-
-$padding: 1.25rem;
-$radius: 0.3rem;
 $tile--size--small: 55px;
 $tile--size--medium: 92px;
 $tile--size--big: 100px;
+
 $tile--frames: 13;
+
 $sprite--height--small: 77px;
 $sprite--height--medium: 129px;
 $sprite--height--big: 140px;
+
+$ball--small: 50px;
+$ball--medium: 70px;
+$ball--big: 90px;
+
+$board--size--small: $tile--size--small * 8;
+$board--size--medium: $tile--size--medium * 8;
+$board--size--big: $tile--size--big * 8;
+
+$board-edge--small: $board--size--small / 2;
+$board-edge--medium: $board--size--medium / 2;
+$board-edge--big: $board--size--big / 2;
+
+$speed--flip: 0.5s;
+$speed--fade: 0.5s;
+$speed--move: 1s;
 
 html {
   box-sizing: border-box;

@@ -1,28 +1,22 @@
 .tally {
-    $size--small: 50px;
-    $size--medium: 70px;
-    $size--big: 90px;
-    $board-edge--small: $board--size--small / 2;
-    $board-edge--medium: $board--size--medium / 2;
-    $board-edge--big: $board--size--big / 2;
-    height: $size--small;
+    height: $ball--small;
     opacity: 0.25;
     pointer-events: none;
     position: absolute;
     top: 50%;
-    transition: opacity 0.5s ease-out,
-                transform 1s ease-out;
-    width: $size--small;
+    transition: opacity $speed--fade ease-out,
+                transform $speed--move ease-out;
+    width: $ball--small;
     z-index: 10;
 
     @include media('>=medium') {
-        height: $size--medium;
-        width: $size--medium;
+        height: $ball--medium;
+        width: $ball--medium;
     }
 
     @include media('>=large') {
-        height: $size--big;
-        width: $size--big;
+        height: $ball--big;
+        width: $ball--big;
     }
 
     &--one {
@@ -127,7 +121,7 @@
         position: absolute;
         top: 0;
         transform: scale(0.75);
-        transition: transform 0.5s ease-out;
+        transition: transform $speed--move ease-out;
         width: 100%;
 
         &:before {
@@ -178,7 +172,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        transition: transform 0.5s ease-out;
+        transition: transform $speed--move ease-out;
         width: 50%;
 
         &--0 {
