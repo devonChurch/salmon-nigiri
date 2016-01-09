@@ -1,12 +1,18 @@
 .reversi {
-    margin: 130px auto 20px;
+    margin: auto;
+    max-width: 800px;
+    padding: 130px 20px 20px;
     position: relative;
 
+    @include media('>=small') {
+        padding-top: 30%;
+    }
+
     @include media('>=medium') {
-        margin-top: 200px;
+        padding-top: 25%;
     }
 
     @include media('>=large') {
-        margin-top: 60px;
+        padding-top: 20px;
     }
 }

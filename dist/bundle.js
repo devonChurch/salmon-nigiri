@@ -9389,7 +9389,7 @@
 	
 	        this.Reversi = Reversi;
 	        this.Tile = new Tile(Reversi, this);
-	        this.$wrapper = this.Reversi.$wrapper.find('#board');
+	        this.$wrapper = this.Reversi.$wrapper.find('#board > .board__ratio');
 	        this.tally = 8;
 	        this.generateTiles();
 	        this.tiles = null; // generated via this.replicateBoard();

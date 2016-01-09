@@ -12,10 +12,10 @@
     left: 50%;
     margin: {
         left: 9999px;
-        top: 60px;
+        top: 15%;
     }
     opacity: 0;
-    padding: 6px 20px;
+    padding: 1.5% 4%;
     position: absolute;
     text-transform: uppercase;
     top: 50%;
@@ -29,14 +29,10 @@
 
     @include media('>=medium') {
         font-size: 16px;
-        margin-top: 70px;
-        padding: 8px 25px;
     }
 
     @include media('>=large') {
         font-size: 18px;
-        margin-top: 100px;
-        padding: 10px 30px;
     }
 
     &:hover,
