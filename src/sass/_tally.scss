@@ -15,8 +15,8 @@
     }
 
     @include media('>=large') {
-        height: $ball--big;
-        width: $ball--big;
+        height: $ball--large;
+        width: $ball--large;
     }
 
     &--one {
@@ -29,11 +29,11 @@
         }
 
         @include media('>=large') {
-            transform: translate(-$board-edge--big - 10px, -80px);
+            transform: translate(-$board-edge--large - 10px, -80px);
         }
 
         @include media('>=xlarge') {
-            transform: translate(-$board-edge--big - 50px, -80px);
+            transform: translate(-$board-edge--large - 50px, -80px);
         }
 
         [data-turn="PlayerOne"] &,
@@ -76,11 +76,11 @@
         }
 
         @include media('>=large') {
-            transform: translate($board-edge--big + 10px, -80px);
+            transform: translate($board-edge--large + 10px, -80px);
         }
 
         @include media('>=xlarge') {
-            transform: translate($board-edge--big + 50px, -80px);
+            transform: translate($board-edge--large + 50px, -80px);
         }
 
         [data-turn="PlayerTwo"] &,

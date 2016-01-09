@@ -5,6 +5,7 @@
   box-sizing: inherit; }
 
 body {
+  background: white;
   margin: 0;
   overflow-x: hidden; }
 
@@ -25,18 +26,12 @@ body {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  height: 440px;
+  height: 0;
   margin: auto;
+  padding-top: 100%;
+  position: relative;
   transition: opacity 0.5s ease-out;
-  width: 440px; }
-  @media (min-width: 768px) {
-    .board {
-      height: 736px;
-      width: 736px; } }
-  @media (min-width: 1024px) {
-    .board {
-      height: 800px;
-      width: 800px; } }
+  width: 100%; }
   [data-winner] .board {
     opacity: 0.25; }
 
@@ -62,45 +57,213 @@ body {
   background: transparent;
   border: 0;
   cursor: default;
-  height: 55px;
+  height: 0;
   outline: 0;
-  padding: 0;
-  position: relative;
-  width: 55px; }
-  @media (min-width: 768px) {
-    .tile {
-      height: 92px;
-      width: 92px; } }
-  @media (min-width: 1024px) {
-    .tile {
-      height: 100px;
-      width: 100px; } }
+  padding-top: 12.5%;
+  position: absolute;
+  width: 12.5%; }
+  .tile .tile:nth-of-type(2) {
+    left: 0%;
+    top: 0%; }
+  .tile .tile:nth-of-type(3) {
+    left: 12.5%;
+    top: 0%; }
+  .tile .tile:nth-of-type(4) {
+    left: 25%;
+    top: 0%; }
+  .tile .tile:nth-of-type(5) {
+    left: 37.5%;
+    top: 0%; }
+  .tile .tile:nth-of-type(6) {
+    left: 50%;
+    top: 0%; }
+  .tile .tile:nth-of-type(7) {
+    left: 62.5%;
+    top: 0%; }
+  .tile .tile:nth-of-type(8) {
+    left: 75%;
+    top: 0%; }
+  .tile .tile:nth-of-type(9) {
+    left: 87.5%;
+    top: 0%; }
+  .tile .tile:nth-of-type(3) {
+    left: 0%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(4) {
+    left: 12.5%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(5) {
+    left: 25%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(6) {
+    left: 37.5%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(7) {
+    left: 50%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(8) {
+    left: 62.5%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(9) {
+    left: 75%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(10) {
+    left: 87.5%;
+    top: 12.5%; }
+  .tile .tile:nth-of-type(4) {
+    left: 0%;
+    top: 25%; }
+  .tile .tile:nth-of-type(5) {
+    left: 12.5%;
+    top: 25%; }
+  .tile .tile:nth-of-type(6) {
+    left: 25%;
+    top: 25%; }
+  .tile .tile:nth-of-type(7) {
+    left: 37.5%;
+    top: 25%; }
+  .tile .tile:nth-of-type(8) {
+    left: 50%;
+    top: 25%; }
+  .tile .tile:nth-of-type(9) {
+    left: 62.5%;
+    top: 25%; }
+  .tile .tile:nth-of-type(10) {
+    left: 75%;
+    top: 25%; }
+  .tile .tile:nth-of-type(11) {
+    left: 87.5%;
+    top: 25%; }
+  .tile .tile:nth-of-type(5) {
+    left: 0%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(6) {
+    left: 12.5%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(7) {
+    left: 25%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(8) {
+    left: 37.5%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(9) {
+    left: 50%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(10) {
+    left: 62.5%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(11) {
+    left: 75%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(12) {
+    left: 87.5%;
+    top: 37.5%; }
+  .tile .tile:nth-of-type(6) {
+    left: 0%;
+    top: 50%; }
+  .tile .tile:nth-of-type(7) {
+    left: 12.5%;
+    top: 50%; }
+  .tile .tile:nth-of-type(8) {
+    left: 25%;
+    top: 50%; }
+  .tile .tile:nth-of-type(9) {
+    left: 37.5%;
+    top: 50%; }
+  .tile .tile:nth-of-type(10) {
+    left: 50%;
+    top: 50%; }
+  .tile .tile:nth-of-type(11) {
+    left: 62.5%;
+    top: 50%; }
+  .tile .tile:nth-of-type(12) {
+    left: 75%;
+    top: 50%; }
+  .tile .tile:nth-of-type(13) {
+    left: 87.5%;
+    top: 50%; }
+  .tile .tile:nth-of-type(7) {
+    left: 0%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(8) {
+    left: 12.5%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(9) {
+    left: 25%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(10) {
+    left: 37.5%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(11) {
+    left: 50%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(12) {
+    left: 62.5%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(13) {
+    left: 75%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(14) {
+    left: 87.5%;
+    top: 62.5%; }
+  .tile .tile:nth-of-type(8) {
+    left: 0%;
+    top: 75%; }
+  .tile .tile:nth-of-type(9) {
+    left: 12.5%;
+    top: 75%; }
+  .tile .tile:nth-of-type(10) {
+    left: 25%;
+    top: 75%; }
+  .tile .tile:nth-of-type(11) {
+    left: 37.5%;
+    top: 75%; }
+  .tile .tile:nth-of-type(12) {
+    left: 50%;
+    top: 75%; }
+  .tile .tile:nth-of-type(13) {
+    left: 62.5%;
+    top: 75%; }
+  .tile .tile:nth-of-type(14) {
+    left: 75%;
+    top: 75%; }
+  .tile .tile:nth-of-type(15) {
+    left: 87.5%;
+    top: 75%; }
+  .tile .tile:nth-of-type(9) {
+    left: 0%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(10) {
+    left: 12.5%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(11) {
+    left: 25%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(12) {
+    left: 37.5%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(13) {
+    left: 50%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(14) {
+    left: 62.5%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(15) {
+    left: 75%;
+    top: 87.5%; }
+  .tile .tile:nth-of-type(16) {
+    left: 87.5%;
+    top: 87.5%; }
   .tile--flip .tile__sprite {
     -webkit-transform: translateX(-660px);
             transform: translateX(-660px);
     transition-duration: 0.5s; }
-    @media (min-width: 768px) {
-      .tile--flip .tile__sprite {
-        -webkit-transform: translateX(-1104px);
-                transform: translateX(-1104px); } }
-    @media (min-width: 1024px) {
-      .tile--flip .tile__sprite {
-        -webkit-transform: translateX(-1200px);
-                transform: translateX(-1200px); } }
   .tile__hole, .tile__base, .tile__mask {
     bottom: 0;
     height: 77px;
     left: 0;
     position: absolute;
     width: 55px; }
-    @media (min-width: 768px) {
-      .tile__hole, .tile__base, .tile__mask {
-        height: 129px;
-        width: 92px; } }
-    @media (min-width: 1024px) {
-      .tile__hole, .tile__base, .tile__mask {
-        height: 140px;
-        width: 100px; } }
   .tile__hole__side {
     fill: #cccccc; }
   .tile__hole__drop {
@@ -123,14 +286,6 @@ body {
     transition: transform 0s steps(12);
     transition: transform 0s steps(12), -webkit-transform 0s steps(12);
     width: 715px; }
-    @media (min-width: 768px) {
-      .tile__sprite {
-        height: 129px;
-        width: 1196px; } }
-    @media (min-width: 1024px) {
-      .tile__sprite {
-        height: 140px;
-        width: 1300px; } }
   .tile__front--1, .tile__front--2 {
     fill: #f2f2f2;
     transition: color 1s ease-in; }

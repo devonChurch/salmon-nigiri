@@ -6,7 +6,7 @@
     }
 
     50% {
-        transform: translateY(-30px);
+        transform: translateY(-30%);
     }
 }
 
@@ -14,53 +14,43 @@
     background: transparent;
     border: 0;
     cursor: default;
-    height: $tile--size--small;
+    height: 0;
     outline: 0;
-    padding: 0;
-    position: relative;
-    width: $tile--size--small;
+    padding-top: 12.5%;
+    position: absolute;
+    width: 12.5%;
 
-    @include media('>=medium') {
-        height: $tile--size--medium;
-        width: $tile--size--medium;
-    }
+    $max: 8;
 
-    @include media('>=large') {
-        height: $tile--size--big;
-        width: $tile--size--big;
+    @for $i from 0 to $max {
+
+        $top: 12.5% * $i;
+
+        @for $j from 0 to $max {
+
+            $left: 12.5% * $j;
+
+            &:nth-of-type(#{($i * $max) + ($j + 1)}) {
+                left: $left;
+                top: $top;
+            }
+        }
+
     }
 
     &--flip &__sprite {
-        transform: translateX($tile--size--small * ($tile--frames - 1) * -1);
+        transform: translateX((100% / $tile--frames) * ($tile--frames - 1) * -1);
         transition-duration: $speed--flip;
-
-        @include media('>=medium') {
-            transform: translateX($tile--size--medium * ($tile--frames - 1) * -1);
-        }
-
-        @include media('>=large') {
-            transform: translateX($tile--size--big * ($tile--frames - 1) * -1);
-        }
     }
 
     &__hole,
     &__base,
     &__mask {
         bottom: 0;
-        height: $sprite--height--small;
+        height: 140%;
         left: 0;
         position: absolute;
-        width: $tile--size--small;
-
-        @include media('>=medium') {
-            height: $sprite--height--medium;
-            width: $tile--size--medium;
-        }
-
-        @include media('>=large') {
-            height: $sprite--height--big;
-            width: $tile--size--big;
-        }
+        width: 100%;
     }
 
     &__hole {
@@ -88,20 +78,10 @@
     }
 
     &__sprite {
-        height: $sprite--height--small;
+        height: 100%;
         transform: translateX(0);
         transition: transform 0s steps($tile--frames - 1);
-        width: $tile--size--small * $tile--frames;
-
-        @include media('>=medium') {
-            height: $sprite--height--medium;
-            width: $tile--size--medium * $tile--frames;
-        }
-
-        @include media('>=large') {
-            height: $sprite--height--big;
-            width: $tile--size--big * $tile--frames;
-        }
+        width: 100% * $tile--frames;
     }
 
   // Setting the front and sides of the generic tiles to their respective shade
