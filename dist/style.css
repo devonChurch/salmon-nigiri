@@ -5,38 +5,32 @@
   box-sizing: inherit; }
 
 body {
+  background: white;
   margin: 0;
   overflow-x: hidden; }
 
 .reversi {
-  margin: 130px auto 20px;
+  margin: auto;
+  max-width: 800px;
+  padding: 130px 20px 20px;
   position: relative; }
+  @media (min-width: 480px) {
+    .reversi {
+      padding-top: 30%; } }
   @media (min-width: 768px) {
     .reversi {
-      margin-top: 200px; } }
+      padding-top: 25%; } }
   @media (min-width: 1024px) {
     .reversi {
-      margin-top: 60px; } }
+      padding-top: 20px; } }
 
 .board {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  height: 440px;
-  margin: auto;
-  transition: opacity 0.5s ease-out;
-  width: 440px; }
-  @media (min-width: 768px) {
-    .board {
-      height: 736px;
-      width: 736px; } }
-  @media (min-width: 1024px) {
-    .board {
-      height: 800px;
-      width: 800px; } }
+  position: relative;
+  transition: opacity 0.5s ease-out; }
+  .board__ratio {
+    height: 0;
+    padding-top: 100%;
+    width: 100%; }
   [data-winner] .board {
     opacity: 0.25; }
 
@@ -46,8 +40,8 @@ body {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   50% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px); } }
+    -webkit-transform: translateY(-30%);
+            transform: translateY(-30%); } }
 
 @keyframes tile--jump {
   0%,
@@ -55,52 +49,220 @@ body {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   50% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px); } }
+    -webkit-transform: translateY(-30%);
+            transform: translateY(-30%); } }
 
 .tile {
   background: transparent;
   border: 0;
   cursor: default;
-  height: 55px;
+  height: 0;
   outline: 0;
-  padding: 0;
-  position: relative;
-  width: 55px; }
-  @media (min-width: 768px) {
-    .tile {
-      height: 92px;
-      width: 92px; } }
-  @media (min-width: 1024px) {
-    .tile {
-      height: 100px;
-      width: 100px; } }
+  padding-top: 12.5%;
+  position: absolute;
+  width: 12.5%; }
+  .tile:nth-of-type(1) {
+    left: 0%;
+    top: 0%; }
+  .tile:nth-of-type(2) {
+    left: 12.5%;
+    top: 0%; }
+  .tile:nth-of-type(3) {
+    left: 25%;
+    top: 0%; }
+  .tile:nth-of-type(4) {
+    left: 37.5%;
+    top: 0%; }
+  .tile:nth-of-type(5) {
+    left: 50%;
+    top: 0%; }
+  .tile:nth-of-type(6) {
+    left: 62.5%;
+    top: 0%; }
+  .tile:nth-of-type(7) {
+    left: 75%;
+    top: 0%; }
+  .tile:nth-of-type(8) {
+    left: 87.5%;
+    top: 0%; }
+  .tile:nth-of-type(9) {
+    left: 0%;
+    top: 12.5%; }
+  .tile:nth-of-type(10) {
+    left: 12.5%;
+    top: 12.5%; }
+  .tile:nth-of-type(11) {
+    left: 25%;
+    top: 12.5%; }
+  .tile:nth-of-type(12) {
+    left: 37.5%;
+    top: 12.5%; }
+  .tile:nth-of-type(13) {
+    left: 50%;
+    top: 12.5%; }
+  .tile:nth-of-type(14) {
+    left: 62.5%;
+    top: 12.5%; }
+  .tile:nth-of-type(15) {
+    left: 75%;
+    top: 12.5%; }
+  .tile:nth-of-type(16) {
+    left: 87.5%;
+    top: 12.5%; }
+  .tile:nth-of-type(17) {
+    left: 0%;
+    top: 25%; }
+  .tile:nth-of-type(18) {
+    left: 12.5%;
+    top: 25%; }
+  .tile:nth-of-type(19) {
+    left: 25%;
+    top: 25%; }
+  .tile:nth-of-type(20) {
+    left: 37.5%;
+    top: 25%; }
+  .tile:nth-of-type(21) {
+    left: 50%;
+    top: 25%; }
+  .tile:nth-of-type(22) {
+    left: 62.5%;
+    top: 25%; }
+  .tile:nth-of-type(23) {
+    left: 75%;
+    top: 25%; }
+  .tile:nth-of-type(24) {
+    left: 87.5%;
+    top: 25%; }
+  .tile:nth-of-type(25) {
+    left: 0%;
+    top: 37.5%; }
+  .tile:nth-of-type(26) {
+    left: 12.5%;
+    top: 37.5%; }
+  .tile:nth-of-type(27) {
+    left: 25%;
+    top: 37.5%; }
+  .tile:nth-of-type(28) {
+    left: 37.5%;
+    top: 37.5%; }
+  .tile:nth-of-type(29) {
+    left: 50%;
+    top: 37.5%; }
+  .tile:nth-of-type(30) {
+    left: 62.5%;
+    top: 37.5%; }
+  .tile:nth-of-type(31) {
+    left: 75%;
+    top: 37.5%; }
+  .tile:nth-of-type(32) {
+    left: 87.5%;
+    top: 37.5%; }
+  .tile:nth-of-type(33) {
+    left: 0%;
+    top: 50%; }
+  .tile:nth-of-type(34) {
+    left: 12.5%;
+    top: 50%; }
+  .tile:nth-of-type(35) {
+    left: 25%;
+    top: 50%; }
+  .tile:nth-of-type(36) {
+    left: 37.5%;
+    top: 50%; }
+  .tile:nth-of-type(37) {
+    left: 50%;
+    top: 50%; }
+  .tile:nth-of-type(38) {
+    left: 62.5%;
+    top: 50%; }
+  .tile:nth-of-type(39) {
+    left: 75%;
+    top: 50%; }
+  .tile:nth-of-type(40) {
+    left: 87.5%;
+    top: 50%; }
+  .tile:nth-of-type(41) {
+    left: 0%;
+    top: 62.5%; }
+  .tile:nth-of-type(42) {
+    left: 12.5%;
+    top: 62.5%; }
+  .tile:nth-of-type(43) {
+    left: 25%;
+    top: 62.5%; }
+  .tile:nth-of-type(44) {
+    left: 37.5%;
+    top: 62.5%; }
+  .tile:nth-of-type(45) {
+    left: 50%;
+    top: 62.5%; }
+  .tile:nth-of-type(46) {
+    left: 62.5%;
+    top: 62.5%; }
+  .tile:nth-of-type(47) {
+    left: 75%;
+    top: 62.5%; }
+  .tile:nth-of-type(48) {
+    left: 87.5%;
+    top: 62.5%; }
+  .tile:nth-of-type(49) {
+    left: 0%;
+    top: 75%; }
+  .tile:nth-of-type(50) {
+    left: 12.5%;
+    top: 75%; }
+  .tile:nth-of-type(51) {
+    left: 25%;
+    top: 75%; }
+  .tile:nth-of-type(52) {
+    left: 37.5%;
+    top: 75%; }
+  .tile:nth-of-type(53) {
+    left: 50%;
+    top: 75%; }
+  .tile:nth-of-type(54) {
+    left: 62.5%;
+    top: 75%; }
+  .tile:nth-of-type(55) {
+    left: 75%;
+    top: 75%; }
+  .tile:nth-of-type(56) {
+    left: 87.5%;
+    top: 75%; }
+  .tile:nth-of-type(57) {
+    left: 0%;
+    top: 87.5%; }
+  .tile:nth-of-type(58) {
+    left: 12.5%;
+    top: 87.5%; }
+  .tile:nth-of-type(59) {
+    left: 25%;
+    top: 87.5%; }
+  .tile:nth-of-type(60) {
+    left: 37.5%;
+    top: 87.5%; }
+  .tile:nth-of-type(61) {
+    left: 50%;
+    top: 87.5%; }
+  .tile:nth-of-type(62) {
+    left: 62.5%;
+    top: 87.5%; }
+  .tile:nth-of-type(63) {
+    left: 75%;
+    top: 87.5%; }
+  .tile:nth-of-type(64) {
+    left: 87.5%;
+    top: 87.5%; }
   .tile--flip .tile__sprite {
-    -webkit-transform: translateX(-660px);
-            transform: translateX(-660px);
+    -webkit-transform: translateX(-92.30769%);
+            transform: translateX(-92.30769%);
     transition-duration: 0.5s; }
-    @media (min-width: 768px) {
-      .tile--flip .tile__sprite {
-        -webkit-transform: translateX(-1104px);
-                transform: translateX(-1104px); } }
-    @media (min-width: 1024px) {
-      .tile--flip .tile__sprite {
-        -webkit-transform: translateX(-1200px);
-                transform: translateX(-1200px); } }
   .tile__hole, .tile__base, .tile__mask {
     bottom: 0;
-    height: 77px;
+    height: 140%;
     left: 0;
     position: absolute;
-    width: 55px; }
-    @media (min-width: 768px) {
-      .tile__hole, .tile__base, .tile__mask {
-        height: 129px;
-        width: 92px; } }
-    @media (min-width: 1024px) {
-      .tile__hole, .tile__base, .tile__mask {
-        height: 140px;
-        width: 100px; } }
+    width: 100%; }
   .tile__hole__side {
     fill: #cccccc; }
   .tile__hole__drop {
@@ -116,21 +278,13 @@ body {
       -webkit-animation: tile--jump 0.5s ease-in-out;
               animation: tile--jump 0.5s ease-in-out; }
   .tile__sprite {
-    height: 77px;
+    height: 100%;
     -webkit-transform: translateX(0);
             transform: translateX(0);
     transition: -webkit-transform 0s steps(12);
     transition: transform 0s steps(12);
     transition: transform 0s steps(12), -webkit-transform 0s steps(12);
-    width: 715px; }
-    @media (min-width: 768px) {
-      .tile__sprite {
-        height: 129px;
-        width: 1196px; } }
-    @media (min-width: 1024px) {
-      .tile__sprite {
-        height: 140px;
-        width: 1300px; } }
+    width: 1300%; }
   .tile__front--1, .tile__front--2 {
     fill: #f2f2f2;
     transition: color 1s ease-in; }
@@ -167,115 +321,73 @@ body {
     fill: #276991; }
 
 .tally {
-  height: 50px;
+  max-width: 150px;
+  min-width: 50px;
   opacity: 0.25;
   pointer-events: none;
   position: absolute;
-  top: 50%;
-  transition: opacity 0.5s ease-out, -webkit-transform 1s ease-out;
-  transition: opacity 0.5s ease-out, transform 1s ease-out;
-  transition: opacity 0.5s ease-out, transform 1s ease-out, -webkit-transform 1s ease-out;
-  width: 50px;
+  text-align: center;
+  top: 4%;
+  transition: left 1s ease-out, opacity 0.5s ease-out, right 1s ease-out, top 1s ease-out, -webkit-transform 1s ease-out;
+  transition: left 1s ease-out, opacity 0.5s ease-out, right 1s ease-out, top 1s ease-out, transform 1s ease-out;
+  transition: left 1s ease-out, opacity 0.5s ease-out, right 1s ease-out, top 1s ease-out, transform 1s ease-out, -webkit-transform 1s ease-out;
+  width: 10%;
   z-index: 10; }
-  @media (min-width: 768px) {
-    .tally {
-      height: 70px;
-      width: 70px; } }
   @media (min-width: 1024px) {
     .tally {
-      height: 90px;
-      width: 90px; } }
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+              transform: translateY(-50%); } }
   .tally--one {
     color: #22b573;
-    right: 50%;
-    -webkit-transform: translate(-165px, -327px);
-            transform: translate(-165px, -327px); }
-    @media (min-width: 768px) {
-      .tally--one {
-        -webkit-transform: translate(-276px, -517px);
-                transform: translate(-276px, -517px); } }
+    left: 6%; }
     @media (min-width: 1024px) {
       .tally--one {
-        -webkit-transform: translate(-410px, -80px);
-                transform: translate(-410px, -80px); } }
+        left: -10%; } }
     @media (min-width: 1200px) {
       .tally--one {
-        -webkit-transform: translate(-450px, -80px);
-                transform: translate(-450px, -80px); } }
+        left: -15%; } }
     [data-turn="PlayerOne"] .tally--one,
     [data-winner="PlayerOne"] .tally--one {
       opacity: 1; }
     [data-winner] .tally--one {
-      -webkit-transform: translate(-50px, -60px);
-              transform: translate(-50px, -60px); }
-      @media (min-width: 768px) {
-        [data-winner] .tally--one {
-          -webkit-transform: translate(-60px, -90px);
-                  transform: translate(-60px, -90px); } }
-      @media (min-width: 1024px) {
-        [data-winner] .tally--one {
-          -webkit-transform: translate(-70px, -110px);
-                  transform: translate(-70px, -110px); } }
-    .replay--active ~ .tally--one {
-      -webkit-transform: translate(-50px, -110px);
-              transform: translate(-50px, -110px); }
-      @media (min-width: 768px) {
-        .replay--active ~ .tally--one {
-          -webkit-transform: translate(-60px, -120px);
-                  transform: translate(-60px, -120px); } }
-      @media (min-width: 1024px) {
-        .replay--active ~ .tally--one {
-          -webkit-transform: translate(-70px, -150px);
-                  transform: translate(-70px, -150px); } }
+      left: 25%;
+      top: 50%;
+      -webkit-transform: translate(-25%, -50%);
+              transform: translate(-25%, -50%); }
+    [data-winner] .replay--active ~ .tally--one {
+      -webkit-transform: translate(-25%, -80%);
+              transform: translate(-25%, -80%); }
   .tally--two {
     color: #3fa9f5;
-    left: 50%;
-    -webkit-transform: translate(165px, -327px);
-            transform: translate(165px, -327px); }
-    @media (min-width: 768px) {
-      .tally--two {
-        -webkit-transform: translate(276px, -517px);
-                transform: translate(276px, -517px); } }
+    right: 6%; }
     @media (min-width: 1024px) {
       .tally--two {
-        -webkit-transform: translate(410px, -80px);
-                transform: translate(410px, -80px); } }
+        right: -10%; } }
     @media (min-width: 1200px) {
       .tally--two {
-        -webkit-transform: translate(450px, -80px);
-                transform: translate(450px, -80px); } }
+        right: -15%; } }
     [data-turn="PlayerTwo"] .tally--two,
     [data-winner="PlayerTwo"] .tally--two {
       opacity: 1; }
     [data-winner] .tally--two {
-      -webkit-transform: translate(50px, -60px);
-              transform: translate(50px, -60px); }
-      @media (min-width: 768px) {
-        [data-winner] .tally--two {
-          -webkit-transform: translate(60px, -90px);
-                  transform: translate(60px, -90px); } }
-      @media (min-width: 1024px) {
-        [data-winner] .tally--two {
-          -webkit-transform: translate(70px, -110px);
-                  transform: translate(70px, -110px); } }
-    .replay--active ~ .tally--two {
-      -webkit-transform: translate(50px, -110px);
-              transform: translate(50px, -110px); }
-      @media (min-width: 768px) {
-        .replay--active ~ .tally--two {
-          -webkit-transform: translate(60px, -120px);
-                  transform: translate(60px, -120px); } }
-      @media (min-width: 1024px) {
-        .replay--active ~ .tally--two {
-          -webkit-transform: translate(70px, -150px);
-                  transform: translate(70px, -150px); } }
+      right: 25%;
+      top: 50%;
+      -webkit-transform: translate(25%, -50%);
+              transform: translate(25%, -50%); }
+    [data-winner] .replay--active ~ .tally--two {
+      -webkit-transform: translate(25%, -80%);
+              transform: translate(25%, -80%); }
+  .tally__ratio {
+    height: 0;
+    padding-top: 100%;
+    width: 100%; }
   .tally__ball {
     border: 2px solid;
     border-radius: 50%;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
+    height: 0;
+    padding-top: 100%;
+    position: relative;
     -webkit-transform: scale(0.75);
             transform: scale(0.75);
     transition: -webkit-transform 1s ease-out;
@@ -324,7 +436,10 @@ body {
     transition: transform 1s ease-out, -webkit-transform 1s ease-out;
     width: 50%; }
     .tally__number--0 {
-      left: 0; }
+      left: 2%; }
+      @media (min-width: 768px) {
+        .tally__number--0 {
+          left: -2%; } }
       [data-digit-0="1"] .tally__number--0 {
         -webkit-transform: translateY(-100%);
                 transform: translateY(-100%); }
@@ -356,7 +471,10 @@ body {
         -webkit-transform: translateY(-1000%);
                 transform: translateY(-1000%); }
     .tally__number--1 {
-      right: 0; }
+      right: 2%; }
+      @media (min-width: 768px) {
+        .tally__number--1 {
+          right: -2%; } }
       [data-digit-1="1"] .tally__number--1 {
         -webkit-transform: translateY(-100%);
                 transform: translateY(-100%); }
@@ -391,7 +509,6 @@ body {
     color: white;
     display: block;
     font-family: 'Roboto Mono';
-    font-size: 20px;
     position: absolute;
     -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
@@ -399,10 +516,10 @@ body {
     width: 50%; }
     @media (min-width: 768px) {
       .tally__digit {
-        font-size: 30px; } }
+        font-size: 22px; } }
     @media (min-width: 1024px) {
       .tally__digit {
-        font-size: 36px; } }
+        font-size: 30px; } }
     .tally__digit:nth-of-type(0) {
       top: -50%; }
     .tally__digit:nth-of-type(1) {
@@ -431,17 +548,18 @@ body {
       left: 0; }
   .tally__identifier {
     font-family: 'Roboto';
-    font-size: 16px;
+    font-size: 100%;
     font-weight: 300;
-    left: -50%;
-    margin: 0;
-    position: absolute;
-    width: 200%;
-    text-align: center;
+    left: -100%;
+    margin: 25% 0 0;
+    position: relative;
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
     transition: -webkit-transform 0.5s ease-out;
     transition: transform 0.5s ease-out;
     transition: transform 0.5s ease-out, -webkit-transform 0.5s ease-out;
-    top: 120%; }
+    white-space: nowrap;
+    width: 300%; }
     @media (min-width: 768px) {
       .tally__identifier {
         font-size: 18px;
@@ -452,9 +570,6 @@ body {
         font-size: 20px;
         -webkit-transform: translateX(30px);
                 transform: translateX(30px); } }
-    @media (min-width: 1200px) {
-      .tally__identifier {
-        font-size: 22px; } }
     [data-winner="PlayerOne"] .tally--one .tally__identifier,
     [data-winner="PlayerTwo"] .tally--two .tally__identifier {
       -webkit-transform: translateX(0);
@@ -477,9 +592,9 @@ body {
   font-weight: 900;
   left: 50%;
   margin-left: 9999px;
-  margin-top: 60px;
+  margin-top: 15%;
   opacity: 0;
-  padding: 6px 20px;
+  padding: 1.5% 4%;
   position: absolute;
   text-transform: uppercase;
   top: 50%;
@@ -491,14 +606,10 @@ body {
   z-index: 20; }
   @media (min-width: 768px) {
     .replay {
-      font-size: 16px;
-      margin-top: 70px;
-      padding: 8px 25px; } }
+      font-size: 16px; } }
   @media (min-width: 1024px) {
     .replay {
-      font-size: 18px;
-      margin-top: 100px;
-      padding: 10px 30px; } }
+      font-size: 18px; } }
   .replay:hover, .replay:focus {
     background: #4d4d4d; }
   .replay--active {

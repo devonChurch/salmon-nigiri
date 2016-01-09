@@ -1,19 +1,11 @@
 .board {
-    display: flex;
-    flex-wrap: wrap;
-    height: $board--size--small;
-    margin: auto;
+    position: relative;
     transition: opacity $speed--fade ease-out;
-    width: $board--size--small;
 
-    @include media('>=medium') {
-        height: $board--size--medium;
-        width: $board--size--medium;
-    }
-
-    @include media('>=large') {
-        height: $board--size--big;
-        width: $board--size--big;
+    &__ratio {
+        height: 0;
+        padding-top: 100%;
+        width: 100%;
     }
 
     [data-winner] & {
