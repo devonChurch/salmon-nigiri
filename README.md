@@ -10,7 +10,7 @@ A game of [Reversi](https://en.wikipedia.org/wiki/Reversi) against a CPU control
 
 - Clone this repository
 ```
-git clone https://github.com/devonChurch/teriyaki-unagi.git
+git clone https://github.com/devonChurch/salmon-nigiri.git
 ```
 
 - Install project dependancies
